@@ -13,18 +13,23 @@ import Home from './views/Home.js';
 import './assets/index.css'
 import PrivateRoute from './routes/PrivateRoutes';
 import Test from './views/Typingtest'
+import Keyboard from './views/Keyboard';
+import Lessons from './views/Lessons';
 
 ReactDOM.render(
     <BrowserRouter>
       <Switch>
-        <Route path='/' exact render={props=><App {...props}/>}></Route>
+        <Route path='/' exact render={props=><Home {...props}/>}></Route>
         <Route path='/Home' exact render={props=><Home {...props}/>}></Route>
         <Route path='/register' exact render={props=><Register {...props}/>}></Route>
         <Route path='/users/activate/:token' exact render={props=><Activation {...props}/>}></Route>
         <Route path='/login' exact render={props=><Login {...props}/>}></Route>
         <Route path='/users/password/forget' exact render={props=><ForgetPassword {...props}/>}></Route>
         <Route path='/users/password/reset/:token' exact render={props=><Reset {...props}/>}></Route>
-        <Route path='/typing-test' exact render={props=><Test {...props}/>}></Route>
+        <PrivateRoute path='/typing-test' exact component={Test}></PrivateRoute>
+        <PrivateRoute path='/Keyboard' exact component={Keyboard}></PrivateRoute>
+        <Route path='/Keyboard/:id' exact render={props=><Keyboard {...props}/>}></Route>
+        <PrivateRoute path='/lessons' exact component={Lessons}></PrivateRoute>
         <PrivateRoute path='/profile' exact component={Profile}/>
         <Redirect to='/Home'></Redirect>
       </Switch>

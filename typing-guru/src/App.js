@@ -11,7 +11,7 @@ const [name, setName] = useState({
 const user=JSON.parse(localStorage.getItem('user'))
 useEffect(() => {
   if(!user){
-    toast.error('please login')
+    history.push('/login')
   }
   else{
     toast.success(`see your name ${user.name}`)
@@ -57,13 +57,6 @@ useEffect(() => {
                   <i className='fas fa-sign-in-alt  w-6  -ml-2' />
                   <span className='ml-3'>Profile Dashbaord</span>
                 </Link>
-                <Link
-                  to='/admin'
-                  className='mt-5 tracking-wide font-semibold bg-green-500 text-gray-100 w-full py-4 rounded-lg hover:bg-green-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                >
-                  <i className='fas fa-sign-in-alt  w-6  -ml-2' />
-                  <span className='ml-3'>Admin Dashbaord</span>
-                </Link>
                 <button
                   onClick={() => {
                     signout(() => {
@@ -89,3 +82,4 @@ useEffect(() => {
 
 export default App;
 
+  

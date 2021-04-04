@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import authSvg from '../assests/reset.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 const ResetPassword = ({match}) => {
   const [changeData, setchangeData] = useState({
       password1: '',
@@ -84,7 +85,15 @@ const ResetPassword = ({match}) => {
                   <i className='fas fa-sign-in-alt  w-6  -ml-2' />
                   <span className='ml-3'>Submit</span>
                 </button>
+                <Link
+                  to='/login'
+                  className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
+                >
+                  <i className='fas fa-sign-in-alt  w-6  -ml-2' />
+                  <span className='ml-3'>Login</span>
+                </Link>
               </form>
+             
             </div>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { authenticate, isAuth } from '../helpers/auth';
 import { Link, Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import Header from './Header';
 
 const Login = ({ history }) => {
   const [loginData, setLoginData] = useState({
@@ -33,33 +34,33 @@ const Login = ({ history }) => {
   };
   const informParent = response => {
     authenticate(response, () => {
-      isAuth(history.push('/private')) 
+      isAuth(history.push('/profile')) 
     });
   };
 
-  const sendFacebookToken = (userID, accessToken) => {
-    axios
-      .post(`${process.env.REACT_APP_API_URL}/facebooklogin`, {
-        userID,
-        accessToken
-      })
-      .then(res => {
-        console.log(res.data);
-        informParent(res);
-      })
-      .catch(error => {
-        console.log('GOOGLE SIGNIN ERROR', error.response);
-      });
-  };
+  // const sendFacebookToken = (userID, accessToken) => {
+  //   axios
+  //     .post(`${process.env.REACT_APP_API_URL}/facebooklogin`, {
+  //       userID,
+  //       accessToken
+  //     })
+  //     .then(res => {
+  //       console.log(res.data);
+  //       informParent(res);
+  //     })
+  //     .catch(error => {
+  //       console.log('GOOGLE SIGNIN ERROR', error.response);
+  //     });
+  // };
   const responseGoogle = response => {
     console.log(response);
     sendGoogleToken(response.tokenId);
   };
 
-  const responseFacebook = response => {
-    console.log(response);
-    sendFacebookToken(response.userID, response.accessToken)
-  };
+  // const responseFacebook = response => {
+  //   console.log(response);
+  //   sendFacebookToken(response.userID, response.accessToken)
+  // };
 
   const handleSubmit = e => {
     console.log(process.env.REACT_APP_API_URL);
@@ -101,6 +102,8 @@ const Login = ({ history }) => {
     }
   };
   return (
+    <>
+    <Header/>
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
       {isAuth() ? <Redirect to='/' /> : null}
       <ToastContainer />
@@ -130,7 +133,7 @@ const Login = ({ history }) => {
                     </button>
                   )}
                 ></GoogleLogin>
-                <FacebookLogin
+                {/* <FacebookLogin
                   appId={`${process.env.REACT_APP_FACEBOOK_CLIENT}`}
                   autoLoad={false}
                   callback={responseFacebook}
@@ -145,7 +148,7 @@ const Login = ({ history }) => {
                       <span className='ml-4'>Sign In with Facebook</span>
                     </button>
                   )}
-                />
+                /> */}
 
                 <a
                   className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3
@@ -206,6 +209,7 @@ const Login = ({ history }) => {
       </div>
       
     </div>
+    </>
   );
 };
 

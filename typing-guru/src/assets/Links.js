@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {
   FaHome,
   FaBookOpen,
@@ -7,10 +7,12 @@ import {
   FaLightbulb,
   FaSignInAlt,
 } from 'react-icons/fa';
+
 export const links = [
+  
   {
     id: 1,
-    url: '/',
+    url: '/home',
     title: 'Home',
     className:'nav-text',
     icon: <FaHome />,
@@ -43,12 +45,6 @@ export const links = [
     className:'nav-text',
     icon: <FaLightbulb />,
   },
-  {
-    id: 6,
-    url: '/login',
-    title: 'Login',
-    className:'nav-login',
-    icon: <FaSignInAlt />,
-  },
+
 ]
 

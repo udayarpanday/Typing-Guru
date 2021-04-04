@@ -1,31 +1,67 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBullseye, FaRedo, FaTachometerAlt } from 'react-icons/fa';
-
+import {Link} from 'react-router-dom';
+import { getByText } from '@testing-library/react';
 import Test from './Validation';
 import Speed from './Speed';
-import Accuracy from './Accuracy'
+import Accuracy from './Accuracy.js'
 import Header from './Header';
-import Modal from 'react-modal'
+import axios from 'axios';
+
 
 
 
 // const test="pbo /fh kfK8]"
-const TypingTest = () => {
-  const [text,setText] =useState("asd asdf fdsa fds");
+const Keyboard = (props) => {
+    console.log(props);
+
+    const [text,setText] =useState('less');
+    
+    useEffect(()=>{
+        const getData=()=>{
+            axios 
+            .get(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`)
+            .then(res=>{
+                console.log(res.data)
+                setText(res.data.lessondetails)
+        
+            })
+            .catch(err=>{
+                // console.log(err);
+            })
+        }
+        getData();
+        
+    },[props])
+    // console.log("the state is "+state);
+    // const { lessondetails } = state||"test";
+    // console.log("the lesson details is "+lessondetails);
+
+ 
+   
+
+    // const [text,setText] =useState(lessondetails);
+//   const [text,setText] =useState(":;adsa'?/1290--10298");
+
   const [userInput,setUserInput]=useState('');
   const [symbols,setSymbols]=useState('');
   const [sec,setSec]=useState(0);
   const [started,setStarted]=useState(false);
   const [finished,setFinished]=useState(false);
   const [acc,setAccuracy]=useState(100);
-  const [timer, setSeconds] = React.useState(60);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [timer, setSeconds] = React.useState(10);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   let interval = useRef(null)
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+ 
 
   const onRestart=()=>{
-    
 
   }
 
@@ -44,26 +80,22 @@ const TypingTest = () => {
  
 
   useEffect(() => {
-    TypeTimer();
-    
+    if (timer > 0) {
+      setTimeout(() => setSeconds(timer - 1), 1000);
+    } else {
+      clearInterval(interval.current);
+      setFinished(true);
+      setSeconds('Thank You!');
+    }
   });
 
-  const TypeTimer=()=>{
-    if (timer > 0 && finished==false) {
-        setTimeout(() => setSeconds(timer - 1), 1000);
-      } else {
-        clearInterval(interval.current);
-        setFinished(true);
-        handleShow(true)
-        setSeconds('Stats Modal');
-      }
-  }
+
   const onFinish=(userInput)=>{
     if (userInput.length===text.length){
       console.log('finished')
       clearInterval(interval.current);
       setFinished(true);
-        handleShow(true)
+      openModal();
       }
     }
   
@@ -97,7 +129,7 @@ const TypingTest = () => {
     <Header/>
       <section className='test-wrapper'>
         <div className='custom-container'>
-        <div>
+        <div className='timer'>
         <h1>{timer}</h1>
       </div>
            <div className='test-contents'>
@@ -105,7 +137,6 @@ const TypingTest = () => {
              <Test text={text} userInput={userInput}/>
             <textarea
               value={userInput}
-              onClick={timer}
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
@@ -135,15 +166,6 @@ const TypingTest = () => {
             </div>
           </div>
       </section> 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          
-        </Modal.Footer>
-      </Modal>
        
 
       <section className='keyboard-layout'>
@@ -432,4 +454,4 @@ const TypingTest = () => {
   );
 };
 
-export default TypingTest;
+export default Keyboard;

@@ -2,7 +2,7 @@ import React from 'react';
 // import { FaBars } from 'react-icons/fa';
 import {Link} from 'react-router-dom';
 import Header from './Header.js';
-// import TypingSS from '../images/Typing-SS.png';
+import TypingSS from '../assets/Typing-SS.png';
 
 
 const Home = () => {
@@ -41,7 +41,7 @@ const Home = () => {
             <div className='custom-container'>
                 <div className='details-container'>
                     <div className='details-items'>
-                        {/* <img src={TypingSS} alt="Logo" /> */}
+                        <img src={TypingSS} alt="Logo" />
                     </div>
                     <div className='details-items'>
                         <h2> What is TypingGuru</h2>

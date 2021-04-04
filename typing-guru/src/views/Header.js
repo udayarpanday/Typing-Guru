@@ -1,9 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { links } from '../assets/Links';
 import {Link} from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
 import Logo from '../assets/Logo.png';
+import {toast,ToastContainer} from 'react-toastify'
 
 const Header = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -14,7 +15,23 @@ const Header = () => {
     const closeSidebar = () => {
       setIsSidebarOpen(false);
     };
-  
+
+    const user=JSON.parse(localStorage.getItem('user'))
+    const [username, setName] = useState({
+        names:''
+      })
+      const {names}=username
+      useEffect(() => {
+        if(!user){
+          toast.error('Please login')
+            setName({...username,names:'Login'})
+        }
+        else{
+        //   toast.success(`Hello ${user.name}`)
+          const name=user.name
+          setName({...username,names:name})
+        }
+      }, [])
 
     return (
         <>
@@ -27,10 +44,13 @@ const Header = () => {
                 </div>
                 <div className='sidebar-items'>
                 {/* <img src={Logo} alt="Logo" /> */}
+                <Link to='/'>
+                    <h1>Typing Guru</h1>
+               </Link>
                 </div>
                     <div className='sidebar-items'>
-                        <Link to='/Login'>
-                            <button className='login-button'>Login</button>
+                        <Link to='/profile'>
+                            <button className='login-button'>{names}</button>
                         </Link>
                         
                     </div>
@@ -38,7 +58,9 @@ const Header = () => {
         </div>
           <aside className={`${isSidebarOpen ? 'sidebar show-sidebar' : 'sidebar'}`}> 
           <div className='sidebar-header'>
-               <h3>Typing Guru</h3>
+               <Link to='/'>
+                    <h3>Typing Guru</h3>
+               </Link>
               <button className='close-btn' onClick={closeSidebar}>
                   <FaTimes />
               </button>
