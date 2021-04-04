@@ -280,7 +280,7 @@ exports.resetPasswordController = (req, res) => {
             const updatedFields = {
               password: newPassword,
               resetPasswordLink: ''
-            };
+            };  
 
             user =lodash.extend(user, updatedFields);
 

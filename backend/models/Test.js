@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-// user schema
+// text for typing test schema
 const Test = new mongoose.Schema(
   {
     texts: {
-      type: Array
+      type: String
     },
   },
 );
