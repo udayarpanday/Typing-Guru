@@ -18,14 +18,12 @@ const TypingTest = () => {
   const [started,setStarted]=useState(false);
   const [finished,setFinished]=useState(false);
   const [acc,setAccuracy]=useState(100);
-  const [timer, setSeconds] = React.useState(60);
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [timer, setSeconds] = useState(100);
+  const [final, setFinal] = useState();
+  const [isModalOpen, setisModalOpen] = useState(false);
   let interval = useRef(null)
 
   const onRestart=()=>{
-    
 
   }
 
@@ -51,19 +49,22 @@ const TypingTest = () => {
   const TypeTimer=()=>{
     if (timer > 0 && finished==false) {
         setTimeout(() => setSeconds(timer - 1), 1000);
+        setFinal(timer)
       } else {
         clearInterval(interval.current);
         setFinished(true);
-        handleShow(true)
-        setSeconds('Stats Modal');
+        console.log(final);
+        setSeconds(setisModalOpen(true));
       }
   }
+
+
   const onFinish=(userInput)=>{
-    if (userInput.length===text.length){
+    if (userInput===text){
       console.log('finished')
       clearInterval(interval.current);
       setFinished(true);
-        handleShow(true)
+      setisModalOpen(true)
       }
     }
   
@@ -97,15 +98,12 @@ const TypingTest = () => {
     <Header/>
       <section className='test-wrapper'>
         <div className='custom-container'>
-        <div>
-        <h1>{timer}</h1>
-      </div>
+        <div>{timer}</div>
            <div className='test-contents'>
              <div className='test-item'>
              <Test text={text} userInput={userInput}/>
             <textarea
               value={userInput}
-              onClick={timer}
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
@@ -135,16 +133,16 @@ const TypingTest = () => {
             </div>
           </div>
       </section> 
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          
-        </Modal.Footer>
-      </Modal>
-       
+       <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={()=>setisModalOpen(false)}>
+          <h2>Your stats</h2>
+          <p>hi</p>
+          <Speed sec={sec} symbols={symbols}></Speed>
+          <Accuracy acc={acc} symbols={symbols} text={text}></Accuracy> 
+          {100-final}
+          <button onClick={()=>setisModalOpen(false)}>
+            Close
+          </button>
+       </Modal>
 
       <section className='keyboard-layout'>
         <div className='custom-container'>
@@ -431,5 +429,7 @@ const TypingTest = () => {
     </>
   );
 };
+
+
 
 export default TypingTest;

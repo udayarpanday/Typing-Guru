@@ -4,7 +4,7 @@ import cookie from 'js-cookie';
 export const setCookie=(key,value)=>{
     if(window!=='undefined'){
         cookie.set(key,value,{
-            expires:1   //In days
+            expires:7   //In days
         })
     }
 }
@@ -13,7 +13,7 @@ export const setCookie=(key,value)=>{
 export const removeCookie=key=>{
     if(window!=='undefined'){
         cookie.set(key,{
-            expires:1   //In days
+            expires:7   //In days
         })
     }
 }

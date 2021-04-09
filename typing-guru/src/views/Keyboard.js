@@ -15,7 +15,7 @@ import axios from 'axios';
 const Keyboard = (props) => {
     console.log(props);
 
-    const [text,setText] =useState('less');
+    const [text,setText] =useState('');
     
     useEffect(()=>{
         const getData=()=>{

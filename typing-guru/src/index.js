@@ -15,6 +15,7 @@ import PrivateRoute from './routes/PrivateRoutes';
 import Test from './views/Typingtest'
 import Keyboard from './views/Keyboard';
 import Lessons from './views/Lessons';
+import Stats from './views/Stats';
 
 ReactDOM.render(
     <BrowserRouter>
@@ -31,6 +32,7 @@ ReactDOM.render(
         <Route path='/Keyboard/:id' exact render={props=><Keyboard {...props}/>}></Route>
         <PrivateRoute path='/lessons' exact component={Lessons}></PrivateRoute>
         <PrivateRoute path='/profile' exact component={Profile}/>
+        <PrivateRoute path='/stats' exact component={Stats}/>
         <Redirect to='/Home'></Redirect>
       </Switch>
     </BrowserRouter>,
