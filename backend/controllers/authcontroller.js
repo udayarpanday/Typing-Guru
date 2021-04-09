@@ -15,6 +15,38 @@ const { result } = require('lodash')
 exports.registerController = (req, res) => {
     const { name, email, password } = req.body;
     const errors = validationResult(req);
+    const token = jwt.sign(
+      {
+        name,
+        email,
+        password
+      },
+      process.env.JWT_ACCOUNT_ACTIVATION,
+      {
+        expiresIn: '5m'
+      }
+    );
+    const transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+          user: 'fyp.typingguru@gmail.com',
+          pass: 'thisismyfyp2021'
+      }
+    });
+
+    const mailOptions = {
+      from: 'fyp.typingguru@gmail.com',
+      to: email,
+      subject: 'Account Activation Link',
+      html: `
+              <h1>Please use the following link to activate your account</h1>
+              <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
+              <hr />
+              <p>This email may contains sensetive information</p>
+              <p>${process.env.CLIENT_URL}</p>
+           `
+    };
+
   
     if (!errors.isEmpty()) {
       const firstError = errors.array().map(error => error.msg)[0];
@@ -29,43 +61,8 @@ exports.registerController = (req, res) => {
           return res.status(400).json({
             errors: 'Email is taken'
           });
-        }
-      });
-  
-      const token = jwt.sign(
-        {
-          name,
-          email,
-          password
-        },
-        process.env.JWT_ACCOUNT_ACTIVATION,
-        {
-          expiresIn: '5m'
-        }
-      );
-
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'fyp.typingguru@gmail.com',
-            pass: 'thisismyfyp2021'
-        }
-      });
-
-      const mailOptions = {
-        from: 'fyp.typingguru@gmail.com',
-        to: email,
-        subject: 'Account Activation Link',
-        html: `
-                <h1>Please use the following link to activate your account</h1>
-                <p>${process.env.CLIENT_URL}/users/activate/${token}</p>
-                <hr />
-                <p>This email may contains sensetive information</p>
-                <p>${process.env.CLIENT_URL}</p>
-             `
-      };
-
-      transporter.sendMail(mailOptions)
+        }else{
+          transporter.sendMail(mailOptions)
         .then(sent => {
             return res.json({
               message: `Email has been sent to ${email}`
@@ -77,6 +74,8 @@ exports.registerController = (req, res) => {
               errors: errorHandler(err)
             });
         });
+        }
+      });
     }
 };
 
@@ -117,7 +116,7 @@ exports.activationController=(req,res)=>{
     )
   }else {
     return res.json({
-      message: 'error happening please try again'
+      message: 'Error happening please try again'
     });
   }
 }
