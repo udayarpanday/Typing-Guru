@@ -1,5 +1,24 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
+
+const statsSchema = new mongoose.Schema(
+  {
+    Speed: {
+        type: Number,
+    },
+    Accuracy:{
+        type:Number,
+    },
+    Time:{
+        type:Number,
+    },
+    Date:{
+        type:Date,
+        default:Date.now
+    }
+  },
+);
+
 // user schema
 const userSchema = new mongoose.Schema(
   {
@@ -15,6 +34,7 @@ const userSchema = new mongoose.Schema(
       trim: true,
       required: true
     },
+    stats:[statsSchema],
     hashed_password: {
       type: String,
       required: true

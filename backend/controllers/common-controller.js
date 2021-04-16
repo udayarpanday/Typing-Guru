@@ -33,11 +33,6 @@ exports.getOneLessons = (req,res)=>{
         res.json(data);
     });
 }
-exports.getText = (req, res) => {
-    User.find().exec((err, data) => {
-        res.json(data)
-    });
-};
 
 exports.getText = (req, res) => {
     Lessons.find().exec((err, data) => {

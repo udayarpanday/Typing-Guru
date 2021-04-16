@@ -29,6 +29,7 @@ if(process.env.NODE_ENV==='development'){
 //Load routes
 const authRouter=require('./routes/authroutes')
 const userRouter=require('./routes/userroutes')
+// const userRouter=require('./routes/userroutes')
 
 //Use routes
 app.use('/api/',authRouter);

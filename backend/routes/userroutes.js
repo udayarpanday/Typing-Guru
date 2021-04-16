@@ -8,7 +8,8 @@ const { readController, updateController } = require('../controllers/usercontrol
 
 router.get('/user/:id', requireSignin, readController);
 router.put('/user/update', requireSignin, updateController);
-router.get('/typing-test', getText);
+router.get('/stats',requireSignin, readController);
+// router.put('/user/update', requireSignin, updateController);
 router.post('/lessons',insertLessons)
 router.get('/lessons',getLessons);
 router.get('/lessons/:id',getOneLessons);

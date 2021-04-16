@@ -17,7 +17,7 @@ exports.readController = (req, res) => {
 
 exports.updateController = (req, res) => {
     
-    // console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
+    console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
     const { name, password } = req.body;
 
     User.findOne({ _id: req.user._id }, (err, user) => {
