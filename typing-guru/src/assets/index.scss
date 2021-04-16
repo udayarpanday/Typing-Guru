@@ -75,6 +75,9 @@ html{
   
   button{
       outline: none;
+      border: none;
+      background: transparent;
+      color: #00ABAF;
   }
   
   .custom-container{
@@ -416,56 +419,45 @@ html{
     }
   }
   
-
-  .test-wrapper .custom-container {
-    padding-bottom:0 ;
+  .test-wrapper{
+    .custom-container{
+      padding-top:0 ;
+      padding-bottom:0 ;
+      .timer{
+        font-size: 45px;
+        text-align: center;
+      }
+      .stats-details{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 26px;
+        .stats-items{
+          display: flex;
+          align-items: center;
+          .speed-details{
+            display: flex;
+            align-items: center;
+            padding-right: 20px;
+          }
+          .accuracy-details{
+            display: flex;
+            align-items: center;
+          }
+        }
+        .settings{
+          display: flex;
+        }
+      }
+      .test-item{
+        color: #a1a1a1;
+        .typing-text{
+          padding: 30px 0;
+        }
+      }
+    }
   }
   
-  .test-item p{
-    font-size: 30px;
-  
-  }
-  .test-item span{
-    /* background-color: #07ca32cc; */
-    /* border-radius: 5px; */
-  }
-  .test-contents{
-    display: flex;
-    background-color: #F4F5F6;
-    border-radius: 10px;
-    padding-left:10px ;
-    justify-content: space-between;
-  }
-  .test-item{
-    width: 80%;
-  
-  }
-  .test-item:last-of-type{
-    padding-left: 0;
-    width: 20%;
-    text-align: center;
-  }
-  .stats-board{
-    padding-top:15px ;
-  }
-  .speed-details{
-    display: flex;
-    justify-content: space-between;
-    padding: 0 70px;
-  }
-  .accuracy-details{
-    display: flex;
-    justify-content: space-between;
-    padding: 0px 60px;
-  }
-  .restart{
-    display: flex;
-    justify-content: center;
-  
-  }
-  .stats-board h3, h2{
-    padding: 8px 0;
-  }
   .tips-wrapper .custom-container{
     padding-top:0 ;
   }
@@ -525,7 +517,7 @@ html{
     font-display: swap;
     height: 50px;
       width: 100%;
-      border: none;
+
       resize: none;
       outline: none;
   } 
@@ -557,6 +549,11 @@ html{
     font-weight: normal;
     font-style: normal;
     font-display: swap;
+  }
+  .keyboard-layout{
+    .custom-container{
+      padding: 0 100px;
+    }
   }
   .keyboard-container {
     background: #c3adad;

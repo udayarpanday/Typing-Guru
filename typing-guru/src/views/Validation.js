@@ -3,23 +3,45 @@ import React from 'react';
 const Test =  (props) => {
   
   const text = props.text.split('');
-  // console.log(text)
+  let mistake=0;
+  const misChar=[];
+
   return (
-    <div className="border rounded p-3 mb-4">
+    <div>
       {
         text.map((character,i) => {
           let color;
-          // console.log(i)
+          let borderBottom
+          let nextChar=[]
+          nextChar.push(character)
+          console.log(nextChar)
           if (i < props.userInput.length) {
-            color = character === props.userInput[i] ? 'green' : 'yellow';
+            if(character===props.userInput[i]){
+              color='green';
+              borderBottom='3px solid green'
+            }else{
+              color='red';
+              borderBottom='3px solid red'
+              mistake=mistake+1
+              misChar.push(character)
+              console.log(misChar)
+            }
           }
           return (
-            <span key={i} style={{backgroundColor: color, fontSize:'52px', fontFamily:'Devanagari'}}>{character}
+            <>
+            <span key={i} style={{color: color, fontSize:'50px', fontFamily:'Devanagari',borderBottom: borderBottom}}>{character}
             </span>
+            </>
+            
             )
-          
+            
         })
       }
+      {mistake}
+      <div style={{display:'flex',fontFamily:'Devanagari'}}>
+        
+        {misChar}
+      </div>
     </div>
   )
 }

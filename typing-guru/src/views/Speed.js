@@ -1,14 +1,17 @@
 import React from 'react';
 
 export default (props) => {
-
+  
+  const total_wpm=[]
   if (props.symbols !== 0 && props.sec !== 0) {
     let wpm = (props.symbols/5) / (props.sec/60);
-    // console.log(wpm)
+    total_wpm.push(wpm)
     return (
       <div>{Math.round(wpm)} wpm</div>
     )
+    
   }
+
   
-  return null;
+  return '0 wpm';
 }

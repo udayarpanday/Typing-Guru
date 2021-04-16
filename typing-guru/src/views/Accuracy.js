@@ -2,12 +2,18 @@ import React from 'react'
 
 export default (props)=>{
     if (props.symbols !== 0){
-        let total_words=props.text.length;
-        let accuracy=(props.symbols/(total_words-1))*100
-        console.log(props.symbols)
+        let accuracy
+        let symbols=props.symbols
+        let total_words=props.userInput.replace(' ','');
+        if(props.userInput){
+            accuracy=(symbols/total_words.length)*100
+        }else{
+            accuracy=0
+        }
+        
         return (
-            <div>{Math.round(accuracy)} %</div>
+            <div>{ Math.round(accuracy)} %</div>
           )
     }
-    return null;
+    return '0%';
 }

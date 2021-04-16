@@ -1,70 +1,80 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaBullseye, FaRedo, FaTachometerAlt } from 'react-icons/fa';
+import { FaBullseye, FaRedo, FaTachometerAlt,FaCog } from 'react-icons/fa';
+import {toast, ToastContainer} from 'react-toastify'
 
 import Test from './Validation';
 import Speed from './Speed';
 import Accuracy from './Accuracy'
 import Header from './Header';
 import Modal from 'react-modal'
+import {Dropdown} from 'react-bootstrap'
 
 
 
-// const test="pbo /fh kfK8]"
+
+
 const TypingTest = () => {
-  const [text,setText] =useState("asd asdf fdsa fds");
+  const [text,setText] =useState('asdf asdf asdf asd asdf');
   const [userInput,setUserInput]=useState('');
   const [symbols,setSymbols]=useState('');
+  const [next,setNext]=useState('');
   const [sec,setSec]=useState(0);
+  
   const [started,setStarted]=useState(false);
   const [finished,setFinished]=useState(false);
-  const [acc,setAccuracy]=useState(100);
-  const [timer, setSeconds] = useState(100);
+  
+  const [timer, setSeconds] = useState(10);
   const [final, setFinal] = useState();
   const [isModalOpen, setisModalOpen] = useState(false);
+  const [modalShow, setModalShow] = useState(false);
+
   let interval = useRef(null)
 
-  const onRestart=()=>{
-
-  }
+  
 
 
   const onUserInputChange=(input)=>{
     const value=input.target.value;
-    // console.log(value)
     WPMcount();
     onFinish(value);
     nextSymbol(value);
     setUserInput(value);
     setSymbols(countCorrectSymbols(value));
-    nextSymbol(value)
+    setNext(nextSymbol(value));
+
   }
 
- 
 
-  useEffect(() => {
-    TypeTimer();
-    
-  });
 
   const TypeTimer=()=>{
     if (timer > 0 && finished==false) {
-        setTimeout(() => setSeconds(timer - 1), 1000);
+        setTimeout(() => {
+          setSeconds(timer - 1);
+        }, 1000)
         setFinal(timer)
       } else {
         clearInterval(interval.current);
         setFinished(true);
-        console.log(final);
         setSeconds(setisModalOpen(true));
       }
+  }
+  const onRestart=()=>{
+    // setUserInput('')
+    // setSymbols(0)
+    // setSec(0)
+    // setStarted(false)
+    // setFinished(false)
+    // clearInterval(start);
+    window.location.reload(true)
   }
 
 
   const onFinish=(userInput)=>{
     if (userInput===text){
-      console.log('finished')
       clearInterval(interval.current);
       setFinished(true);
       setisModalOpen(true)
+      setModalShow(true)
       }
     }
   
@@ -72,14 +82,12 @@ const TypingTest = () => {
     const quotes=text.replace(' ','');
     return userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]).length ;
 
-    // return userInput.replace('','').split('').filter((s,i)) => s===text[i].length;
   }
   const nextSymbol = (userInput)=>{
-    const quotes=text.replace(' ','');
-    return (userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]).length)+1;
+    const quotes=text;
+    return userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]) ;
     
   }
-  
   const WPMcount=()=>{
     if(!started){
       setStarted(true);
@@ -90,61 +98,82 @@ const TypingTest = () => {
   }
 
   const activekey=(nextkey)=>{
-    console.log(nextSymbol)
+    
   }
+  // var x=[]
+  //  x=document.getElementsByClassName('primary-char')
+  //  for(var i=0;i<x.length;i++){
+  //   console.log(x[i])
+  //  }
+
+
 
   return (
     <>
+    <ToastContainer/>
     <Header/>
       <section className='test-wrapper'>
         <div className='custom-container'>
-        <div>{timer}</div>
-           <div className='test-contents'>
-             <div className='test-item'>
-             <Test text={text} userInput={userInput}/>
+          <div className='timer'>
+            {timer}
+          </div>
+          <div className='stats-details'>
+            <div className='stats-items'>
+              <div className='speed-details'>
+                <FaBullseye color='#00ABAF' size='34px'/>
+                <Speed sec={sec} symbols={symbols}></Speed>
+              </div>
+              <div className='accuracy-details'>
+              <FaTachometerAlt color='#00ABAF' size='34px'/>
+                  <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
+              </div>
+            </div>
+            <div className='settings'>
+              <Dropdown>
+              <Dropdown.Toggle variant="success" id="dropdown-basic">
+              <FaCog size='32px'/>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+                
+              <button onClick={onRestart}>
+                <FaRedo size='32px'/>
+              </button>
+            </div>
+          </div>
+          <div className='test-item'>
+            <div className='typing-text'>
+              <Test text={text} userInput={userInput}/>
+            </div>
+
             <textarea
               value={userInput}
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
-            ></textarea>
-            
-              </div>
-              <div className='test-item'>
-                <div className='stats-board'>
-                  <div className='speed-details'>
-                    <FaTachometerAlt size='32px'/>
-                    <h3>Speed</h3>
-                  </div>
-                  <Speed sec={sec} symbols={symbols}></Speed>
-                  <div className='accuracy-details'>
-                    <FaBullseye size='32px'/>
-                    <h3>Accuracy</h3>
-                  </div>
-                    <Accuracy acc={acc} symbols={symbols} text={text}></Accuracy> 
-                  <div className='restart'>
-                  <button onClick={onRestart}>
-                    <FaRedo size='32px'/>
-                    <h3>Restart</h3>
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
+              onClick={(TypeTimer)}> 
+            </textarea>
           </div>
+        </div>
       </section> 
-       <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={()=>setisModalOpen(false)}>
+        <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={()=>setisModalOpen(false)}>
           <h2>Your stats</h2>
-          <p>hi</p>
           <Speed sec={sec} symbols={symbols}></Speed>
-          <Accuracy acc={acc} symbols={symbols} text={text}></Accuracy> 
-          {100-final}
+          <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
+           {10-final} 
+
           <button onClick={()=>setisModalOpen(false)}>
             Close
           </button>
-       </Modal>
+          
+       </Modal> 
 
-      <section className='keyboard-layout'>
+      <section className='keyboard-layout' >
         <div className='custom-container'>
           <div className='keyboard-container themea' >
             <div className='keyboard'  >

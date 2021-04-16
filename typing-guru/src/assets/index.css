@@ -75,6 +75,9 @@ a:hover, a:focus {
 
 button {
   outline: none;
+  border: none;
+  background: transparent;
+  color: #00ABAF;
 }
 
 .custom-container {
@@ -514,75 +517,68 @@ button {
 }
 
 .test-wrapper .custom-container {
+  padding-top: 0;
   padding-bottom: 0;
 }
 
-.test-item p {
-  font-size: 30px;
-}
-
-.test-item span {
-  /* background-color: #07ca32cc; */
-  /* border-radius: 5px; */
-}
-
-.test-contents {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  background-color: #F4F5F6;
-  border-radius: 10px;
-  padding-left: 10px;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-}
-
-.test-item {
-  width: 80%;
-}
-
-.test-item:last-of-type {
-  padding-left: 0;
-  width: 20%;
+.test-wrapper .custom-container .timer {
+  font-size: 45px;
   text-align: center;
 }
 
-.stats-board {
-  padding-top: 15px;
-}
-
-.speed-details {
+.test-wrapper .custom-container .stats-details {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 0 70px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 26px;
 }
 
-.accuracy-details {
+.test-wrapper .custom-container .stats-details .stats-items {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  padding: 0px 60px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-.restart {
+.test-wrapper .custom-container .stats-details .stats-items .speed-details {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-right: 20px;
 }
 
-.stats-board h3, h2 {
-  padding: 8px 0;
+.test-wrapper .custom-container .stats-details .stats-items .accuracy-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.test-wrapper .custom-container .stats-details .settings {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.test-wrapper .custom-container .test-item {
+  color: #a1a1a1;
+}
+
+.test-wrapper .custom-container .test-item .typing-text {
+  padding: 30px 0;
 }
 
 .tips-wrapper .custom-container {
@@ -658,7 +654,6 @@ textarea {
   font-display: swap;
   height: 50px;
   width: 100%;
-  border: none;
   resize: none;
   outline: none;
 }
@@ -670,6 +665,10 @@ textarea {
   font-weight: normal;
   font-style: normal;
   font-display: swap;
+}
+
+.keyboard-layout .custom-container {
+  padding: 0 100px;
 }
 
 .keyboard-container {

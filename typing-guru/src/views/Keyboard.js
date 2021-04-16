@@ -9,11 +9,7 @@ import Header from './Header';
 import axios from 'axios';
 
 
-
-
-// const test="pbo /fh kfK8]"
 const Keyboard = (props) => {
-    console.log(props);
 
     const [text,setText] =useState('');
     
@@ -27,21 +23,11 @@ const Keyboard = (props) => {
         
             })
             .catch(err=>{
-                // console.log(err);
             })
         }
         getData();
         
     },[props])
-    // console.log("the state is "+state);
-    // const { lessondetails } = state||"test";
-    // console.log("the lesson details is "+lessondetails);
-
- 
-   
-
-    // const [text,setText] =useState(lessondetails);
-//   const [text,setText] =useState(":;adsa'?/1290--10298");
 
   const [userInput,setUserInput]=useState('');
   const [symbols,setSymbols]=useState('');
@@ -154,7 +140,7 @@ const Keyboard = (props) => {
                     <FaBullseye size='32px'/>
                     <h3>Accuracy</h3>
                   </div>
-                    <Accuracy acc={acc} symbols={symbols} text={text}></Accuracy> 
+                    <Accuracy  symbols={symbols} userInput={userInput} text={text}></Accuracy> 
                   <div className='restart'>
                   <button onClick={onRestart}>
                     <FaRedo size='32px'/>
