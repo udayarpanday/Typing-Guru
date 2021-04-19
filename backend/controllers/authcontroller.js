@@ -1,6 +1,6 @@
 const User=require('../models/authmodel')
 const expressJwt =require('express-jwt')
-const lodash=require('lodash')
+const  _ =require('lodash')
 const {OAuth2Client}=require('google-auth-library')
 const fetch =require('node-fetch')
 const {validationResult}=require('express-validator')
@@ -279,9 +279,9 @@ exports.resetPasswordController = (req, res) => {
             const updatedFields = {
               password: newPassword,
               resetPasswordLink: ''
-            };  
+            };
 
-            user =lodash.extend(user, updatedFields);
+            user = _.extend(user, updatedFields);
 
             user.save((err, result) => {
               if (err) {
@@ -299,6 +299,7 @@ exports.resetPasswordController = (req, res) => {
     }
   }
 };
+
 
 const client=new OAuth2Client(process.env.GOOGLE_CLIENT)
 exports.googleController=(req,res)=>{

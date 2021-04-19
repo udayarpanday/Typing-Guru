@@ -3,13 +3,8 @@ const User = require('../models/authmodel');
 const expressJwt =require('express-jwt')
 const Lessons=require('../models/Lessonmodel')
 
-//Custom error handler to handle database errors
-const {errorHandler}=require('../helpers/dbErrorHandling')
-
-const { result } = require('lodash')
 
 exports.insertLessons = (req,res)=>{
-    console.log(req.body);
     lessons = new Lessons(req.body)
   
     lessons.save(function(err) {
@@ -39,4 +34,22 @@ exports.getText = (req, res) => {
         res.json(data)
     });
 };
+
+exports.updateStats=(req,res)=>{
+    const{speed,accuracy,time,date}=req.body
+    var stats={"Speed":speed,"Accuracy":accuracy,"Time":time,date}
+    Lessons.findOne({_id:req.params.id}).exec((err,data)=>{
+        data.stats.push(stats)
+        console.log(data)
+        data.save((err,updatedStats)=>{
+            if (err) {
+                console.log('Stats UPDATE ERROR', err);
+                return res.status(400).json({
+                    error: 'User update failed'
+                });
+            }
+            res.json(updatedStats);
+        })
+    })
+}
 
