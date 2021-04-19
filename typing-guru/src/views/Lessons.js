@@ -1,10 +1,13 @@
 import React, {useState,useEffect} from 'react'
 import Header from './Header'
 import axios from 'axios';
+import {Spinner} from 'react-bootstrap'
+import Stats from './Stats';
 
 const Lessons = (props) => {
 
     const [state,setState] = useState("");
+    const [loading,setLoading]=useState(null)
     useEffect(() => {
         getData()
     }, [])
@@ -14,7 +17,9 @@ const Lessons = (props) => {
         .then(res=>{
             // const { lessonname, lessondetails } = res.data;
             setState(res.data);
+            setLoading(true);
         })
+        
         .catch(err=>{
             console.log(err.response);
         
@@ -46,16 +51,25 @@ const Lessons = (props) => {
                               
                                 <button className='button-design' onClick={()=>{
                                     props.history.push({
-                                            pathname: '/keyboard/'+data._id,
+                                            pathname: '/typing-lesson/'+data._id,
                                             data
                                           });
                                 }} >
                                     <div className='inner'>
                                         <div>
-                                            {data.lessonname}
+                                            {loading ?(data.lessonname):(
+                                                <Spinner animation='border'/>
+                                            )}
                                         </div>
                                         <div>
                                             {data.lessondetails}
+                                            {data.stats.map(stats => 
+                                            <>
+                                            <div>{stats.Speed}</div>
+                                            <div>{stats.Accuracy}</div>
+                                            <div>{stats.Date}</div>
+                                            </>
+                                            )}
                                         </div>
                                     </div>
                                 </button>

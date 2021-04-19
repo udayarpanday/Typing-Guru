@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { FaBullseye, FaRedo, FaTachometerAlt,FaCog,FaStopwatch } from 'react-icons/fa';
 import {toast, ToastContainer} from 'react-toastify'
-import { useGlobalContext } from '../helpers/context.js';
+
 import Test from './Validation';
 import Speed from './Speed';
 import Accuracy from './Accuracy'
@@ -9,24 +9,73 @@ import Header from './Header';
 import Modal from 'react-modal'
 import {Dropdown} from 'react-bootstrap'
 import ReactTooltip from "react-tooltip";
+import axios from 'axios';
 import Keyboard from './Keyboard';
 
 
-
-
-
-
-const TypingTest = () => {
-  // const {totalwpm } = useGlobalContext();
+const TypingLessons = (props) => {
   function getfocus() {
     document.getElementById('mytext').focus();
     // TypeTimer()
   }
+  const [text,setText] =useState('');
   
+  const calcSpeed=()=>{
+    console.log('Sec'+sec)
+    console.log('symbol'+symbols)
+    if (symbols !== 0 && sec !== 0) {
+      let wpm = (symbols/5) / (sec/60);
+      console.log('data'+wpm)
+      return wpm
+    }else{
+      return '100'
+    }
+  }
+  const calcAccuracy=()=>{
+    console.log('Sec'+sec)
+    console.log('symbol'+symbols)
+    if (symbols !== 0 && sec !== 0) {
+      let wpm = (symbols/5) / (sec/60);
+      console.log('data'+wpm)
+      return wpm
+    }else{
+      return '100'
+    }
+  }
+  const updateData=()=>{
+    axios 
+      .put(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`,
+      {
+        speed:calcSpeed(),
+        accuracy:calcAccuracy(),
+      })
+      .then(res=>{
+        
+      })
+      .catch(err=>{
+      })
+  }
+  useEffect(()=>{
+    
+      const getData=()=>{
+          axios 
+          .get(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`)
+          .then(res=>{
+              console.log(res.data)
+              setText(res.data.lessondetails)
+      
+          })
+          .catch(err=>{
+          })
+      }
+      getData();
+      
+      
+  },[props])
+ 
 useEffect(() => {
   getfocus()
 })
-  const [text,setText] =useState('asdf asd as a a as asd asdf');
   
   const [userInput,setUserInput]=useState('');
   const [symbols,setSymbols]=useState('');
@@ -222,10 +271,8 @@ useEffect(() => {
           
        </Modal> 
         <Keyboard/>
-       </>
+     </>
   );
 };
 
-
-
-export default TypingTest;
+export default TypingLessons;

@@ -14,7 +14,6 @@ const Test =  (props) => {
           let borderBottom
           let nextChar=[]
           nextChar.push(character)
-          console.log(nextChar)
           if (i < props.userInput.length) {
             if(character===props.userInput[i]){
               color='green';
@@ -32,7 +31,6 @@ const Test =  (props) => {
             <span key={i} style={{color: color, fontSize:'50px', fontFamily:'Devanagari',borderBottom: borderBottom}}>{character}
             </span>
             </>
-            
             )
             
         })

@@ -10,6 +10,7 @@ const Profile = ({ history }) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    confirmpass:'',
     password: '',
     textChange: 'Update',
   });
@@ -39,7 +40,7 @@ const Profile = ({ history }) => {
         }
       });
   };
-  const { name, email, password, textChange,  } = formData;
+  const { name, email,confirmpass, password, textChange,  } = formData;
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value });
   };
@@ -47,32 +48,37 @@ const Profile = ({ history }) => {
     const token = getCookie('token');
     console.log(token);
     e.preventDefault();
-    setFormData({ ...formData, textChange: 'Submitting' });
-    axios
-      .put(
-        `${process.env.REACT_APP_API_URL}/user/update`,
-        {
-          name,
-          email,
-          password: password
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+    if(password===confirmpass){
+      setFormData({ ...formData, textChange: 'Submitting' });
+      axios
+        .put(
+          `${process.env.REACT_APP_API_URL}/user/update`,
+          {
+            name,
+            email,
+            password: password
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
           }
-        }
-      )
-      .then(res => {
-        updateUser(res, () => {
-          toast.success('Profile Updated Successfully');
-          setFormData({ ...formData, textChange: 'Update' ,password:''});
+        )
+        .then(res => {
+          updateUser(res, () => {
+            toast.success('Profile Updated Successfully');
+            setFormData({ ...formData, textChange: 'Update' ,confirmpass:'',password:''});
+          });
+        })
+        .catch(err => {
+          console.log(err.response);
+          toast.error(err.response.data.error);
+          setFormData({ ...formData, textChange: 'Update' });
         });
-      })
-      .catch(err => {
-        console.log(err.response);
-        toast.error(err.response.data.error);
-        setFormData({ ...formData, textChange: 'Update' });
-      });
+    }else{
+      toast.error('The two passwords must match')
+    }
+    
   };
 
   return (
@@ -106,7 +112,13 @@ const Profile = ({ history }) => {
                   onChange={handleChange('name')}
                   value={name}
                 />
-
+                <input
+                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
+                  type='password'
+                  placeholder='Confirm Password'
+                  onChange={handleChange('confirmpass')}
+                  value={confirmpass}
+                />
                 <input
                   className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
                   type='password'
