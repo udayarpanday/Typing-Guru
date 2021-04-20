@@ -23,7 +23,6 @@ exports.getLessons = (req,res)=>{
     });
 }
 exports.getOneLessons = (req,res)=>{
-
     Lessons.findOne({_id:req.params.id}).exec((err,data)=>{
         res.json(data);
     });
@@ -36,11 +35,11 @@ exports.getText = (req, res) => {
 };
 
 exports.updateStats=(req,res)=>{
-    const{speed,accuracy,time,date}=req.body
-    var stats={"Speed":speed,"Accuracy":accuracy,"Time":time,date}
+    const{speed,accuracy,time,date,completed,user_id}=req.body
+    console.log(user_id)
+    var stats={"Speed":speed,"Accuracy":accuracy,"Time":time,date,"user_id":user_id,"completed":completed}
     Lessons.findOne({_id:req.params.id}).exec((err,data)=>{
         data.stats.push(stats)
-        console.log(data)
         data.save((err,updatedStats)=>{
             if (err) {
                 console.log('Stats UPDATE ERROR', err);
@@ -52,4 +51,38 @@ exports.updateStats=(req,res)=>{
         })
     })
 }
+
+exports.getStats = (req,res)=>{
+    const {id} = req.params;
+    // let items={}, cart=[]
+    let items={push:function push(element){ [].push.call(this,element)}};
+
+    Lessons.find({}).exec((err,data)=>{
+        // console.log(data);
+        data.map((lessons=>{
+            lessons.stats.forEach(function(element){
+                console.log((element.user_id),(id))
+               if(String(element.user_id)===id){
+                   console.log('elemsnet'+element)
+               
+                    items.push({stats:element,lessons:lessons.lessonname})
+                //    items.stats=element
+                //    items.lessons=lessons.lessonname
+                //    cart.push(items);
+    
+               }
+               else{
+                console.log('hi')
+               }
+            })
+        }))
+        // console.log(id);
+       
+    res.json(items)
+    console.log('Hello'+items)
+    })
+    
+}
+
+
 

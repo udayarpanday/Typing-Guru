@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 //stats Schema
 const statsSchema = new mongoose.Schema(
   {
@@ -12,24 +13,32 @@ const statsSchema = new mongoose.Schema(
         type:Number,
     },
     Date:{
-        type:Date,
-        default:Date.now
+        type:String,
+        default:Date
+    },
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId, ref: 'User',
+    },
+    completed:{
+      type:String,
+      default:"false"
     }
+
   },
 );
 // lessons schema
 const Lessons = new mongoose.Schema(
   {
-    lessonname:{
-        type:String
-    },
     lessontype:{
+      type:String
+    },
+    lessonname:{
         type:String
     },
     lessondetails:{
         type:String
     },
-    stats:[statsSchema]
+    stats:[statsSchema],
   }
 );
 
@@ -37,3 +46,4 @@ const Lessons = new mongoose.Schema(
 
 
 module.exports = mongoose.model('Lessons', Lessons);
+// module.exports = mongoose.model('Stats', statsSchema);
