@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import{ToastContainer,toast} from 'react-toastify';
-import {authenticate,isAuth} from '../helpers/auth';
+import {isAuth} from '../helpers/auth';
 import axios from 'axios';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
-import {Link,Redirect} from 'react-dom';
+import jwt from 'jsonwebtoken';
+import {Redirect} from 'react-dom';
 
 
 const Activation = ({match}) => {

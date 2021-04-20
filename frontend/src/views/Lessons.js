@@ -4,10 +4,13 @@ import axios from 'axios';
 import {Spinner} from 'react-bootstrap'
 import Stats from './Stats';
 
+
 const Lessons = (props) => {
 
     const [state,setState] = useState("");
-    const [loading,setLoading]=useState(null)
+    let complete='false'
+
+
     useEffect(() => {
         getData()
     }, [])
@@ -17,7 +20,6 @@ const Lessons = (props) => {
         .then(res=>{
             // const { lessonname, lessondetails } = res.data;
             setState(res.data);
-            setLoading(true);
         })
         
         .catch(err=>{
@@ -25,55 +27,57 @@ const Lessons = (props) => {
         
         })
     }
-    const onClickHandler = (req,res)=>{
-        console.log('test');
-        console.log(state);
-        // props.history.push({
-        //     pathname: '/keyboard',
-        //     state
-        //   });
-    }
+    
 
     return (
         <>
             <Header/>
             <div className='lessons-wrapper'>
-                <div className='custom-container'>
-                    <div className='section-title'>
-                       <h1>Beginner</h1> 
+                    <div className='progress-title'>
+                        <h3>Progress:</h3>
+                        <h3>20%</h3> 
                     </div>
+                <div className='custom-container'>
                     <div className='lessons-container'>
-                      {state&&
-                          state.map((data)=>{
-                              console.log(data);
+                      {state&&state.map((data)=>{
+                          
                               return (
+                                  <>
                                 <div className='lessons-items'>
-                              
                                 <button className='button-design' onClick={()=>{
                                     props.history.push({
                                             pathname: '/typing-lesson/'+data._id,
                                             data
                                           });
-                                }} >
+                                     }} >
                                     <div className='inner'>
                                         <div>
-                                            {loading ?(data.lessonname):(
-                                                <Spinner animation='border'/>
-                                            )}
+                                        <h2>{data.lessontype}</h2>
+                                         <h3>{data.lessonname}</h3>  
                                         </div>
                                         <div>
-                                            {data.lessondetails}
-                                            {data.stats.map(stats => 
-                                            <>
-                                            <div>{stats.Speed}</div>
-                                            <div>{stats.Accuracy}</div>
-                                            <div>{stats.Date}</div>
-                                            </>
-                                            )}
+                                            <h3>{data.lessondetails}</h3>
                                         </div>
                                     </div>
+                                    
+                                     <div className='stats-details'>
+                                     
+                            
+                                        <h4>Completed:</h4>
+                                            {data.stats.forEach((stat)=> { 
+                                                if(stat.completed=='false'){
+                                                    complete='false'
+                                                }else{
+                                                    complete='true'
+                                                }
+                                                })}
+                                                {complete}
+
+                                        <h4>Stars</h4>
+                                     </div>
                                 </button>
                             </div>
+                            </>
                                 )
                                
                           })

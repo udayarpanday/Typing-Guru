@@ -14,32 +14,28 @@ import Keyboard from './Keyboard';
 
 
 const TypingLessons = (props) => {
+  const id=JSON.parse(localStorage.getItem('user'))
   function getfocus() {
     document.getElementById('mytext').focus();
     // TypeTimer()
   }
+
   const [text,setText] =useState('');
   
   const calcSpeed=()=>{
-    console.log('Sec'+sec)
-    console.log('symbol'+symbols)
     if (symbols !== 0 && sec !== 0) {
       let wpm = (symbols/5) / (sec/60);
-      console.log('data'+wpm)
-      return wpm
+      return Math.round(wpm)
     }else{
-      return '100'
+      return '0 wpm'
     }
   }
   const calcAccuracy=()=>{
-    console.log('Sec'+sec)
-    console.log('symbol'+symbols)
-    if (symbols !== 0 && sec !== 0) {
-      let wpm = (symbols/5) / (sec/60);
-      console.log('data'+wpm)
-      return wpm
-    }else{
-      return '100'
+    if (symbols !== 0){
+      let accuracy
+      let total_words=userInput.replace(' ','');
+      accuracy=(symbols/total_words.length)*100 
+      return Math.round(accuracy)
     }
   }
   const updateData=()=>{
@@ -48,11 +44,16 @@ const TypingLessons = (props) => {
       {
         speed:calcSpeed(),
         accuracy:calcAccuracy(),
+        user_id:id._id,
+        time:timer,
+        completed:true
+
       })
       .then(res=>{
-        
+        toast.success('Updated')
       })
       .catch(err=>{
+        toast.error('Error')
       })
   }
   useEffect(()=>{
@@ -76,6 +77,7 @@ const TypingLessons = (props) => {
 useEffect(() => {
   getfocus()
 })
+
   
   const [userInput,setUserInput]=useState('');
   const [symbols,setSymbols]=useState('');
@@ -85,7 +87,7 @@ useEffect(() => {
   const [started,setStarted]=useState(false);
   const [finished,setFinished]=useState(false);
   
-  const [timer, setSeconds] = useState(30);
+  const [timer, setSeconds] = useState(0);
   const [final, setFinal] = useState(timer);
   const [isModalOpen, setisModalOpen] = useState(false);
   const [modalShow, setModalShow] = useState(false);
@@ -98,7 +100,12 @@ useEffect(() => {
 
 
   let interval = useRef(null)
-
+  useEffect(() => {
+    if(started){
+      TypeTimer()
+    }
+    
+  }, [timer])
   
 
 
@@ -116,9 +123,9 @@ useEffect(() => {
 
 
   const TypeTimer=()=>{
-    if (timer > 0 && finished==false) {
+    if (finished==false) {
         setTimeout(() => {
-          setSeconds(timer - 1);
+          setSeconds(timer + 1);
         }, 1000)
         setFinal(timer)
       } else {
@@ -139,11 +146,13 @@ useEffect(() => {
 
 
   const onFinish=(userInput)=>{
-    if (userInput===text){
+    if (userInput.length===text.length){
       clearInterval(interval.current);
       setFinished(true);
+      updateData()
       setisModalOpen(true)
       setModalShow(true)
+      
       }
     }
   
@@ -253,7 +262,7 @@ useEffect(() => {
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
-              onInput={()=>TypeTimer()}
+              onInput={TypeTimer}
               > 
             </textarea>
           </div>

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { links } from '../assets/Links';
+import { links } from '../helpers//Links';
 import {Link} from 'react-router-dom';
 import { FaBars } from 'react-icons/fa';
 import { FaTimes } from 'react-icons/fa';
@@ -23,12 +23,11 @@ const Header = () => {
       const {names}=username
       useEffect(() => {
         if(!user){
-          toast.error('Please login')
             setName({...username,names:'Login'})
         }
         else{
         //   toast.success(`Hello ${user.name}`)
-          const name=user.name
+          const name=user.name.split(" ")[0]
           setName({...username,names:name})
         }
       }, [])

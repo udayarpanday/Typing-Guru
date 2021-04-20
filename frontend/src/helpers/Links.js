@@ -1,11 +1,10 @@
-import React,{useState} from 'react'
+import React from 'react'
 import {
   FaHome,
   FaBookOpen,
   FaList,
   FaPen,
   FaLightbulb,
-  FaSignInAlt,
 } from 'react-icons/fa';
 
 export const links = [

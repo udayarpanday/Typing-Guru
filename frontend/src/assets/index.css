@@ -80,6 +80,21 @@ button {
   color: #00ABAF;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
 .custom-container {
   padding: 60px 100px;
   max-width: 1920px;
@@ -1017,29 +1032,54 @@ textarea {
   }
 }
 
-.lessons-wrapper .lessons-container {
+.lessons-wrapper .progress-title {
+  padding: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.lessons-wrapper .custom-container {
+  padding-top: 0;
+}
+
+.lessons-wrapper .custom-container .lessons-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
 }
 
-.lessons-wrapper .lessons-container .lessons-items {
-  width: 25%;
+.lessons-wrapper .custom-container .lessons-container .lessons-items {
+  width: 80%;
   padding: 20px;
 }
 
-.lessons-wrapper .lessons-container .lessons-items .button-design {
+.lessons-wrapper .custom-container .lessons-container .lessons-items .button-design {
   width: 100%;
   outline: none;
   border: 1px solid gray;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
-.lessons-wrapper .lessons-container .lessons-items .button-design .inner {
+.lessons-wrapper .custom-container .lessons-container .lessons-items .button-design .inner {
   padding: 20px;
+  text-align: left;
+  width: 60%;
+}
+
+.lessons-wrapper .custom-container .lessons-container .lessons-items .button-design .stats-details {
+  width: 40%;
+  padding: 25px;
+  text-align: left;
 }
 /*# sourceMappingURL=index.css.map */

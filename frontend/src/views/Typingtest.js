@@ -12,10 +12,6 @@ import ReactTooltip from "react-tooltip";
 import Keyboard from './Keyboard';
 
 
-
-
-
-
 const TypingTest = () => {
   // const {totalwpm } = useGlobalContext();
   function getfocus() {
@@ -64,7 +60,12 @@ useEffect(() => {
 
   }
 
-
+useEffect(() => {
+  if(started){
+    TypeTimer()
+  }
+  
+}, [timer])
 
   const TypeTimer=()=>{
     if (timer > 0 && finished==false) {
@@ -75,7 +76,7 @@ useEffect(() => {
       } else {
         clearInterval(interval.current);
         setFinished(true);
-        // setSeconds(setisModalOpen(true));
+        setSeconds(setisModalOpen(true));
       }
   }
   const onRestart=()=>{
@@ -105,7 +106,10 @@ useEffect(() => {
   }
   const nextSymbol = (userInput)=>{
     const quotes=text;
-    return userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]) ;
+    // console.log(quotes);
+      userInput.replace(' ', '').split('').filter((s,i) => {
+      // s === quotes[i]
+    })
     
   }
   const WPMcount=()=>{
@@ -204,7 +208,8 @@ useEffect(() => {
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
-              onInput={()=>TypeTimer()}
+              onInput={TypeTimer}
+
               > 
             </textarea>
           </div>
@@ -216,7 +221,11 @@ useEffect(() => {
           <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
            {final} 
 
-          <button onClick={()=>setisModalOpen(false)}>
+          <button onClick={()=>
+            setisModalOpen(false)
+            // window.location.reload(true)
+
+            }>
             Close
           </button>
           

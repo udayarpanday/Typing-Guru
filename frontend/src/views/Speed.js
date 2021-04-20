@@ -17,4 +17,13 @@ export default (props) => {
     
   }
   return '0 wpm';
+  // console.log(props);
+  // var wpm = props.onCalcSpeed();
+  // return(
+  //   <div>
+  //     {
+  //       Math.round(wpm) 
+  //     } wpm
+  //   </div>
+  // )
 }
