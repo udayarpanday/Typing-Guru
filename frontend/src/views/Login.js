@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-// import authSvg from '../assests/login.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { authenticate, isAuth } from '../helpers/auth';
 import { Link, Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import Header from './Header';
 
 const Login = ({ history }) => {
@@ -34,39 +32,21 @@ const Login = ({ history }) => {
   };
   const informParent = response => {
     authenticate(response, () => {
-      isAuth(history.push('/profile')) 
+      isAuth(history.push('/profile'))
     });
   };
 
-  // const sendFacebookToken = (userID, accessToken) => {
-  //   axios
-  //     .post(`${process.env.REACT_APP_API_URL}/facebooklogin`, {
-  //       userID,
-  //       accessToken
-  //     })
-  //     .then(res => {
-  //       console.log(res.data);
-  //       informParent(res);
-  //     })
-  //     .catch(error => {
-  //       console.log('GOOGLE SIGNIN ERROR', error.response);
-  //     });
-  // };
   const responseGoogle = response => {
     console.log(response);
     sendGoogleToken(response.tokenId);
   };
 
-  // const responseFacebook = response => {
-  //   console.log(response);
-  //   sendFacebookToken(response.userID, response.accessToken)
-  // };
 
   const handleSubmit = e => {
     console.log(process.env.REACT_APP_API_URL);
     e.preventDefault();
     if (email && password) {
-        setLoginData({ ...loginData, textChange: 'Submitting' });
+      setLoginData({ ...loginData, textChange: 'Submitting' });
       axios
         .post(`${process.env.REACT_APP_API_URL}/login`, {
           email,
@@ -80,14 +60,14 @@ const Login = ({ history }) => {
               password: '',
               textChange: 'Submitted'
             });
-            isAuth() && isAuth().role === 'admin'
-              ? history.push('/admin')
-              : history.push('/private');
+            if (isAuth()) {
+              history.push('/profile');
+            }
             toast.success(`Hey ${res.data.user.name}, Welcome back!`);
           });
         })
         .catch(err => {
-            setLoginData({
+          setLoginData({
             ...loginData,
             email: '',
             password: '',
@@ -103,12 +83,82 @@ const Login = ({ history }) => {
   };
   return (
     <>
-    <Header/>
-    <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
-      {isAuth() ? <Redirect to='/' /> : null}
-      <ToastContainer />
-      <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-        <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
+      <Header />
+      <div className='custom-container'>
+        {isAuth() ? <Redirect to='/' /> : null}
+        <ToastContainer />
+        <div className='login-wrapper'>
+          <div className='login-items'>
+            <div className='banner-image'>
+              <div className='section-title'>
+                <h1>Sign Up for Typing Guru</h1>
+              </div>
+            </div>
+            <div className='login-form'>
+              <div className='login-options'>
+                <GoogleLogin
+                  clientId={`${process.env.REACT_APP_GOOGLE_CLIENT}`}
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                  render={renderProps => (
+                    <button
+                      onClick={renderProps.onClick}
+                      disabled={renderProps.disabled}
+                      className='options-btn'>
+                      <h3>Sign In with Google</h3>
+                    </button>
+                  )}
+                ></GoogleLogin>
+              </div>
+              <button>
+                <a href='/register' target='_self'>
+                  <h3 className='options-btn'>Sign Up</h3>
+                </a>
+              </button>
+              <div>
+                <hr></hr>
+                <p>Or with Sign In With E-mail</p>
+                <div>
+                <form
+                className='mx-auto max-w-xs relative '
+                onSubmit={handleSubmit}
+              >
+                <input
+                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
+                  type='email'
+                  placeholder='Email'
+                  onChange={handleChange('email')}
+                  value={email}
+                />
+                <input
+                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
+                  type='password'
+                  placeholder='Password'
+                  onChange={handleChange('password')}
+                  value={password}
+                />
+                <button
+                  type='submit'
+                  className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
+                >
+                  <i className='fas fa-sign-in-alt  w-6  -ml-2' />
+                  <span className='ml-3'>Sign In</span>
+                </button>
+                <Link
+                  to='/users/password/forget'
+                  className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
+                >
+                  Forgot password?
+                </Link>
+              </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* <div className=''>
+        <div className=''>
           <div className='mt-12 flex flex-col items-center'>
             <h1 className='text-2xl xl:text-3xl font-extrabold'>
               Sign In for Typing Guru
@@ -133,23 +183,6 @@ const Login = ({ history }) => {
                     </button>
                   )}
                 ></GoogleLogin>
-                {/* <FacebookLogin
-                  appId={`${process.env.REACT_APP_FACEBOOK_CLIENT}`}
-                  autoLoad={false}
-                  callback={responseFacebook}
-                  render={renderProps => (
-                    <button
-                      onClick={renderProps.onClick}
-                      className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3 bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
-                    >
-                      <div className=' p-2 rounded-full '>
-                        <i className='fab fa-facebook' />
-                      </div>
-                      <span className='ml-4'>Sign In with Facebook</span>
-                    </button>
-                  )}
-                /> */}
-
                 <a
                   className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3
            bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
@@ -194,7 +227,7 @@ const Login = ({ history }) => {
                   to='/users/password/forget'
                   className='no-underline hover:underline text-indigo-500 text-md text-right absolute right-0  mt-2'
                 >
-                  Forget password?
+                  Forgot password?
                 </Link>
               </form>
             </div>
@@ -207,8 +240,8 @@ const Login = ({ history }) => {
           ></div>
         </div>
       </div>
-      
-    </div>
+       */}
+      </div>
     </>
   );
 };

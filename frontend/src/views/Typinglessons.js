@@ -1,116 +1,118 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { FaBullseye, FaRedo, FaTachometerAlt,FaCog,FaStopwatch } from 'react-icons/fa';
-import {toast, ToastContainer} from 'react-toastify'
+import { FaBullseye, FaRedo, FaTachometerAlt, FaCog, FaStopwatch } from 'react-icons/fa';
+import { toast, ToastContainer } from 'react-toastify'
 
-import Test from './Validation';
+import Learn from './LessonValidation';
 import Speed from './Speed';
 import Accuracy from './Accuracy'
 import Header from './Header';
 import Modal from 'react-modal'
-import {Dropdown} from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
 import ReactTooltip from "react-tooltip";
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 import Keyboard from './Keyboard';
 
 
-const TypingLessons = (props) => {
-  const id=JSON.parse(localStorage.getItem('user'))
+const TypingLessons = (props,history) => {
+  const id = JSON.parse(localStorage.getItem('user'))
   function getfocus() {
     document.getElementById('mytext').focus();
-    // TypeTimer()
   }
 
-  const [text,setText] =useState('');
-  
-  const calcSpeed=()=>{
+  const [text, setText] = useState('');
+
+  const calcSpeed = () => {
     if (symbols !== 0 && sec !== 0) {
-      let wpm = (symbols/5) / (sec/60);
+      let wpm = (symbols / 5) / (sec / 60);
       return Math.round(wpm)
-    }else{
-      return '0 wpm'
+    } else {
+      return 0
     }
   }
-  const calcAccuracy=()=>{
-    if (symbols !== 0){
+  const calcAccuracy = () => {
+    if (symbols !== 0) {
       let accuracy
-      let total_words=userInput.replace(' ','');
-      accuracy=(symbols/total_words.length)*100 
+      let total_words = userInput.replace(' ', '');
+      accuracy = (symbols / total_words.length) * 100
       return Math.round(accuracy)
+    }else{
+      return 0
     }
   }
-  const updateData=()=>{
-    axios 
+  const updateData = () => {
+    axios
       .put(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`,
-      {
-        speed:calcSpeed(),
-        accuracy:calcAccuracy(),
-        user_id:id._id,
-        time:timer,
-        completed:true
+        {
+          speed: calcSpeed(),
+          accuracy: calcAccuracy(),
+          user_id: id._id,
+          time: timer,
+          completed: true
 
-      })
-      .then(res=>{
+        })
+      .then(res => {
         toast.success('Updated')
       })
-      .catch(err=>{
+      .catch(err => {
         toast.error('Error')
       })
   }
-  useEffect(()=>{
-    
-      const getData=()=>{
-          axios 
-          .get(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`)
-          .then(res=>{
-              console.log(res.data)
-              setText(res.data.lessondetails)
-      
-          })
-          .catch(err=>{
-          })
-      }
-      getData();
-      
-      
-  },[props])
- 
-useEffect(() => {
-  getfocus()
-})
+  useEffect(() => {
 
-  
-  const [userInput,setUserInput]=useState('');
-  const [symbols,setSymbols]=useState('');
-  const [next,setNext]=useState('');
-  const [sec,setSec]=useState(0);
-  
-  const [started,setStarted]=useState(false);
-  const [finished,setFinished]=useState(false);
-  
+    const getData = () => {
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/lessons/${props.match.params.id}`)
+        .then(res => {
+          console.log(res.data)
+          setText(res.data.lessondetails)
+
+        })
+        .catch(err => {
+        })
+    }
+    getData();
+
+
+  }, [props])
+
+  useEffect(() => {
+    getfocus()
+  })
+
+
+  const [userInput, setUserInput] = useState('');
+  const [symbols, setSymbols] = useState('');
+  const [next, setNext] = useState('');
+  const [sec, setSec] = useState(0);
+
+  const [started, setStarted] = useState(false);
+  const [finished, setFinished] = useState(false);
+
   const [timer, setSeconds] = useState(0);
   const [final, setFinal] = useState(timer);
   const [isModalOpen, setisModalOpen] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  const [keyboard,setKeyboard]=useState({
-    textChange:'Hide Keyboard',
-    display:'block'
+  const [keyboard, setKeyboard] = useState({
+    textChange: 'Hide Keyboard',
+    display: 'block'
   })
   // const [opacity,setOpacity]=useState(0)
-  const {display,textChange}=keyboard
+  const { display, textChange } = keyboard
 
 
   let interval = useRef(null)
   useEffect(() => {
-    if(started){
+    if (started) {
       TypeTimer()
     }
-    
+
   }, [timer])
-  
 
 
-  const onUserInputChange=(input)=>{
-    const value=input.target.value;
+
+  const onUserInputChange = (input) => {
+    const value = input.target.value;
     WPMcount();
     onFinish(value);
     nextSymbol(value);
@@ -122,19 +124,19 @@ useEffect(() => {
 
 
 
-  const TypeTimer=()=>{
-    if (finished==false) {
-        setTimeout(() => {
-          setSeconds(timer + 1);
-        }, 1000)
-        setFinal(timer)
-      } else {
-        clearInterval(interval.current);
-        setFinished(true);
-        // setSeconds(setisModalOpen(true));
-      }
+  const TypeTimer = () => {
+    if (finished == false) {
+      setTimeout(() => {
+        setSeconds(timer + 1);
+      }, 1000)
+      setFinal(timer)
+    } else {
+      clearInterval(interval.current);
+      setFinished(true);
+      // setSeconds(setisModalOpen(true));
+    }
   }
-  const onRestart=()=>{
+  const onRestart = () => {
     // setUserInput('')
     // setSymbols(0)
     // setSec(0)
@@ -145,39 +147,39 @@ useEffect(() => {
   }
 
 
-  const onFinish=(userInput)=>{
-    if (userInput.length===text.length){
+  const onFinish = (userInput) => {
+    if (userInput.length === text.length) {
       clearInterval(interval.current);
       setFinished(true);
       updateData()
       setisModalOpen(true)
       setModalShow(true)
-      
-      }
+
     }
-  
-  const countCorrectSymbols=(userInput)=>{
-    const quotes=text.replace(' ','');
-    return userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]).length ;
+  }
+
+  const countCorrectSymbols = (userInput) => {
+    const quotes = text.replace(' ', '');
+    return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]).length;
 
   }
-  const nextSymbol = (userInput)=>{
-    const quotes=text;
-    return userInput.replace(' ', '').split('').filter((s,i) => s === quotes[i]) ;
-    
+  const nextSymbol = (userInput) => {
+    const quotes = text;
+    return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]);
+
   }
-  const WPMcount=()=>{
-    if(!started){
+  const WPMcount = () => {
+    if (!started) {
       setStarted(true);
-        interval.current=setInterval(()=>{
-        setSec(sec=>sec+1)
-      },1000)
+      interval.current = setInterval(() => {
+        setSec(sec => sec + 1)
+      }, 1000)
     }
   }
 
 
-  const activekey=(nextkey)=>{
-    
+  const activekey = (nextkey) => {
+
   }
   // var x=[]
   //  x=document.getElementsByClassName('primary-char')
@@ -189,8 +191,8 @@ useEffect(() => {
 
   return (
     <>
-    <ToastContainer/>
-    <Header/>
+      <ToastContainer />
+      <Header />
       <section className='test-wrapper'>
         <div className='custom-container'>
           <div className='timer'>
@@ -199,88 +201,75 @@ useEffect(() => {
           <div className='stats-details'>
             <div className='stats-items'>
               <div className='speed-details' data-tip data-for="speedTip">
-                <FaBullseye color='#00ABAF' size='34px'/>
+                <FaBullseye color='#00ABAF' size='34px' />
                 <Speed sec={sec} symbols={symbols}></Speed>
               </div>
               <ReactTooltip id="speedTip" place="top" effect="solid">
                 Your raw typing speed
               </ReactTooltip>
               <div className='accuracy-details' data-tip data-for="accuracyTip">
-              <FaTachometerAlt color='#00ABAF' size='34px'/>
-                  <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
+                <FaTachometerAlt color='#00ABAF' size='34px' />
+                <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
               </div>
               <ReactTooltip id="accuracyTip" place="top" effect="solid">
                 Your typing accuracy
               </ReactTooltip>
             </div>
             <div className='settings'>
-            <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic" >
-              <FaStopwatch size='32px' data-tip data-for="timerTip"/>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={()=>setSeconds(15)}>15 seconds</Dropdown.Item>
-                <Dropdown.Item onClick={()=>setSeconds(30)}>30 seconds</Dropdown.Item>
-                <Dropdown.Item onClick={()=>setSeconds(60)}>60 seconds</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-            <ReactTooltip id="timerTip" place="top" effect="solid">
-                Time
-              </ReactTooltip>
               <Dropdown>
-              <Dropdown.Toggle variant="success" id="dropdown-basic" >
-              <FaCog size='32px' data-tip data-for="settingsTip"/>
-              </Dropdown.Toggle>
+                <Dropdown.Toggle variant="success" id="dropdown-basic" >
+                  <FaCog size='32px' data-tip data-for="settingsTip" />
+                </Dropdown.Toggle>
 
-              <Dropdown.Menu>
-                <Dropdown.Item onClick={onRestart}>Dark Mode</Dropdown.Item>
-                <Dropdown.Item onClick={()=>setKeyboard({...keyboard,display:'none',textChange:'Show Key'})}>{textChange}</Dropdown.Item>
-                {/* <Dropdown.Item onclick={onRestart}>Something else</Dropdown.Item> */}
-              </Dropdown.Menu>
-            </Dropdown>
-            <ReactTooltip id="settingsTip" place="top" effect="solid">
+                <Dropdown.Menu>
+                  <Dropdown.Item onClick={onRestart}>Dark Mode</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setKeyboard({ ...keyboard, display: 'none', textChange: 'Show Key' })}>{textChange}</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              <ReactTooltip id="settingsTip" place="top" effect="solid">
                 Settings
               </ReactTooltip>
               <button onClick={onRestart} data-tip data-for="restartTip">
-                <FaRedo size='32px'/>
+                <FaRedo size='32px' />
               </button>
               <ReactTooltip id="restartTip" place="top" effect="solid">
                 Restart
               </ReactTooltip>
             </div>
-          
+
           </div>
           <div className='test-item'>
             <div className='typing-text'>
-              <Test text={text} userInput={userInput}/>
+              <Learn text={text} userInput={userInput} />
             </div>
-            
+
             <textarea
-            id='mytext'
+              id='mytext'
               value={userInput}
               onChange={onUserInputChange}
               className="typing-area"
               readOnly={finished}
               onInput={TypeTimer}
-              > 
+            >
             </textarea>
           </div>
         </div>
-      </section> 
-        <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={()=>setisModalOpen(false)}>
-          <h2>Your stats</h2>
-          <Speed sec={sec} symbols={symbols}></Speed>
-          <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
-           {final} 
+      </section>
+      <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={() => setisModalOpen(false)}>
+        <h2>Your stats</h2>
+        <Speed sec={sec} symbols={symbols}></Speed>
+        <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
+        {final}
 
-          <button onClick={()=>setisModalOpen(false)}>
-            Close
+        <button onClick={() => 
+          setisModalOpen(false)
+          }>
+          Close
           </button>
-          
-       </Modal> 
-        <Keyboard/>
-     </>
+
+      </Modal>
+      <Keyboard />
+    </>
   );
 };
 

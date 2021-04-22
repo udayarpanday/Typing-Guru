@@ -10,6 +10,7 @@ import Modal from 'react-modal'
 import {Dropdown} from 'react-bootstrap'
 import ReactTooltip from "react-tooltip";
 import Keyboard from './Keyboard';
+import Charts from './Charts.js';
 
 
 const TypingTest = () => {
@@ -219,6 +220,7 @@ useEffect(() => {
           <h2>Your stats</h2>
           <Speed sec={sec} symbols={symbols}></Speed>
           <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy> 
+           <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
            {final} 
 
           <button onClick={()=>

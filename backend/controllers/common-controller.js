@@ -54,7 +54,6 @@ exports.updateStats=(req,res)=>{
 
 exports.getStats = (req,res)=>{
     const {id} = req.params;
-    // let items={}, cart=[]
     let items={push:function push(element){ [].push.call(this,element)}};
 
     Lessons.find({}).exec((err,data)=>{
@@ -62,24 +61,15 @@ exports.getStats = (req,res)=>{
         data.map((lessons=>{
             lessons.stats.forEach(function(element){
                 console.log((element.user_id),(id))
-               if(String(element.user_id)===id){
-                   console.log('elemsnet'+element)
-               
+               if(String(element.user_id)===id){               
                     items.push({stats:element,lessons:lessons.lessonname})
-                //    items.stats=element
-                //    items.lessons=lessons.lessonname
-                //    cart.push(items);
-    
                }
                else{
                 console.log('hi')
                }
             })
         }))
-        // console.log(id);
-       
     res.json(items)
-    console.log('Hello'+items)
     })
     
 }
