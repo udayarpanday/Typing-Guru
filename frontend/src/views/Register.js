@@ -61,7 +61,7 @@ const Register = () => {
   return (
     <>
     <Header/>
-    <div className='custom-container'>
+    <div className='auth-container'>
       {isAuth() ? <Redirect to='/' /> : null}
       <ToastContainer />
       <div className='login-wrapper'>

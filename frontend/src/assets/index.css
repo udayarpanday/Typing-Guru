@@ -118,6 +118,12 @@ tr:nth-child(even) {
   max-width: 1500px;
 }
 
+.auth-container {
+  padding: 80px 100px;
+  max-width: 1920px;
+  margin: auto;
+}
+
 .section-title {
   padding-bottom: 20px;
 }
@@ -1062,8 +1068,8 @@ textarea {
 
 .lessons-wrapper .custom-container .lessons-container .lessons-items .button-design {
   width: 100%;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
@@ -1090,8 +1096,8 @@ textarea {
 
 .stats-wrapper .custom-container .main-stats .stats-board {
   width: 33.33%;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
@@ -1106,8 +1112,8 @@ textarea {
 
 .stats-wrapper .custom-container .main-stats .personal-bests {
   width: 33.33%;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 8px -4px grey;
+          box-shadow: 0px 0px 8px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
@@ -1122,8 +1128,8 @@ textarea {
 
 .stats-wrapper .custom-container .main-stats .lesson-stats {
   width: 33.33%;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
@@ -1152,8 +1158,8 @@ textarea {
       -ms-flex-align: center;
           align-items: center;
   background-color: white;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
 }
 
 .login-wrapper .login-items .banner-image {
@@ -1199,8 +1205,8 @@ textarea {
 }
 
 .card-view {
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
@@ -1258,8 +1264,8 @@ textarea {
 .reset-wrapper .reset-items {
   padding: 20px;
   background-color: white;
-  -webkit-box-shadow: 0px 0px 16px -4px grey;
-          box-shadow: 0px 0px 16px -4px grey;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
 }
 
 .reset-wrapper .reset-items .login-input .login-fields {
@@ -1276,6 +1282,78 @@ textarea {
 
 .reset-wrapper .reset-items .login-input .login-fields .input-box {
   width: 40%;
+  padding: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-family: 'Kiwi Maru';
+  border: 1px solid #919191;
+}
+
+.profile-wrapper {
+  padding: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 10px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
+}
+
+.profile-wrapper .section-title h2 {
+  text-align: left;
+}
+
+.profile-wrapper .profile-tabs {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.profile-wrapper .profile-tabs .user-tab {
+  border-right: 1px solid gray;
+  width: 50%;
+}
+
+.profile-wrapper .profile-tabs .goals-tab {
+  width: 50%;
+  padding: 25px;
+  padding-top: 0;
+}
+
+.profile-wrapper .profile-tabs .login-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+.profile-wrapper .profile-tabs .login-fields .login-header {
+  width: 100%;
+}
+
+.profile-wrapper .profile-tabs .login-fields .login-box {
+  width: 100%;
+}
+
+.profile-wrapper .profile-tabs .login-fields .input-box {
+  width: 80%;
+  padding: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-family: 'Kiwi Maru';
+  border: 1px solid #919191;
+}
+
+.profile-wrapper .password-tab {
+  width: 50%;
+}
+
+select {
+  width: 100%;
   padding: 8px;
   margin: 15px 0;
   font-size: 18px;

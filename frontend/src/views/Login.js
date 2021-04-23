@@ -87,7 +87,7 @@ const Login = ({ history }) => {
   return (
     <>
       <Header />
-      <div className='custom-container'>
+      <div className='auth-container'>
         {isAuth() ? <Redirect to='/' /> : null}
         <ToastContainer />
         <div className='login-wrapper'>
@@ -99,7 +99,7 @@ const Login = ({ history }) => {
             </div>
             <div className='login-form'>
               <div className='login-options'>
-                <h4>To continue, login into Typing Guru</h4>
+                <h3>To continue, login into Typing Guru</h3>
                 <GoogleLogin
                   clientId={`${process.env.REACT_APP_GOOGLE_CLIENT}`}
                   onSuccess={responseGoogle}
@@ -111,20 +111,20 @@ const Login = ({ history }) => {
                       disabled={renderProps.disabled}
                       className='options-btn button'>
 
-                      <h3>Sign In with Google</h3>
+                      <h3>Continue with Google</h3>
                     </button>
                   )}
                 ></GoogleLogin>
               </div>
 
               <div>
-                <hr></hr>
+              <hr style={{width:'75%'}}></hr>
                 <h4>Or with Sign In With E-mail</h4>
                 <form onSubmit={handleSubmit}>
                   <div className='login-input'>
                     <div className='login-fields'>
                       <div className='login-header'>
-                        <h4>Email Address</h4>
+                        <h5>Email Address</h5>
                       </div>
                       <div className='login-box'>
                         <input
@@ -136,7 +136,7 @@ const Login = ({ history }) => {
                         />
                       </div>
                       <div className='login-header'>
-                        <h4>Password</h4>
+                        <h5>Password</h5>
                       </div>
                       <div className='login-box'>
                         <input
@@ -158,7 +158,7 @@ const Login = ({ history }) => {
                     Forgot password?
                 </Link>
                 </form>
-                <hr></hr>
+                <hr style={{width:'75%'}}></hr>
                 <div className='register-section'>
                   <h4>Don't have an account?</h4>
                   <button className='options-btn button'>

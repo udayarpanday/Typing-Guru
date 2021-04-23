@@ -37,7 +37,7 @@ const ForgetPassword = () => {
     return (
       <>
       <Header/>
-      <div className='custom-container'>
+      <div className='auth-container'>
       <ToastContainer />
       <div className='reset-wrapper'>
           <div className='reset-items'>

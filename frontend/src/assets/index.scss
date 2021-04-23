@@ -128,6 +128,12 @@ tr:nth-child(even) {
   }
 }
 
+.auth-container {
+  padding: 80px 100px;
+  max-width: 1920px;
+  margin: auto;
+}
+
 .section-title {
   padding-bottom: 20px;
 
@@ -1010,7 +1016,7 @@ textarea {
 
         .button-design {
           width: 100%;
-          box-shadow: 0px 0px 16px -4px grey;
+          box-shadow: 0px 0px 10px -4px grey;
           margin: 0px 15px;
           background-color: white;
 
@@ -1042,7 +1048,7 @@ textarea {
 
       .stats-board {
         width: 33.33%;
-        box-shadow: 0px 0px 16px -4px grey;
+        box-shadow: 0px 0px 10px -4px grey;
         margin: 0px 15px;
         background-color: white;
 
@@ -1058,7 +1064,7 @@ textarea {
 
       .personal-bests {
         width: 33.33%;
-        box-shadow: 0px 0px 16px -4px grey;
+        box-shadow: 0px 0px 8px -4px grey;
         margin: 0px 15px;
         background-color: white;
 
@@ -1073,7 +1079,7 @@ textarea {
 
       .lesson-stats {
         width: 33.33%;
-        box-shadow: 0px 0px 16px -4px grey;
+        box-shadow: 0px 0px 10px -4px grey;
         margin: 0px 15px;
         background-color: white;
 
@@ -1096,15 +1102,13 @@ textarea {
 
 //Login Page
 .login-wrapper {
-
-
   .login-items {
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
-    box-shadow: 0px 0px 16px -4px grey;
+    box-shadow: 0px 0px 10px -4px grey;
 
     .banner-image {
       width: 50%;
@@ -1115,31 +1119,34 @@ textarea {
       text-align: center;
       border-left: 2px solid rgb(145, 145, 145);
       padding: 15px;
-      
-      .login-input{
-        .login-fields{
+
+      .login-input {
+        .login-fields {
           display: flex;
           flex-wrap: wrap;
           padding: 20px;
           padding-bottom: 0;
-          .login-header{
+
+          .login-header {
             width: 100%;
           }
-          .login-box{
+
+          .login-box {
             width: 100%;
           }
-          .input-box{
+
+          .input-box {
             width: 65%;
             padding: 8px;
             margin: 15px 0;
             font-size: 18px;
             font-family: 'Kiwi Maru';
-            border:1px solid rgb(145, 145, 145)
-
+            border: 1px solid rgb(145, 145, 145)
           }
         }
       }
-      .register-section{
+
+      .register-section {
         padding: 20px;
       }
     }
@@ -1147,38 +1154,44 @@ textarea {
 }
 
 .card-view {
-  box-shadow: 0px 0px 16px -4px grey;
+  box-shadow: 0px 0px 10px -4px grey;
   margin: 0px 15px;
   background-color: white;
 }
-.modal-wrapper{
-  .section-title{
+
+.modal-wrapper {
+  .section-title {
     text-align: center;
   }
-  .results-wrapper{
+
+  .results-wrapper {
     display: flex;
     text-align: center;
-    
-    .result-speed{
+
+    .result-speed {
       width: 33.33%;
       padding: 20px;
     }
-    .result-acc{
+
+    .result-acc {
       width: 33.33%;
       padding: 20px;
     }
-    .result-time{
+
+    .result-time {
       width: 33.33%;
       padding: 20px;
     }
   }
-  .result-chart{
+
+  .result-chart {
     text-align: -webkit-center;
     padding: 30px;
   }
 }
+
 .options-btn {
-        
+
   margin: 10px;
   border: 1.8px solid #00ABAF;
   padding: 10px;
@@ -1190,37 +1203,109 @@ textarea {
     background-color: #00acafad;
     color: white;
   }
-  &.button{
+
+  &.button {
     width: 45%;
   }
 
 }
 
-.reset-wrapper{
+.reset-wrapper {
   .reset-items {
     padding: 20px;
     background-color: white;
-    box-shadow: 0px 0px 16px -4px grey;
+    box-shadow: 0px 0px 10px -4px grey;
+
     // text-align: center;
-    .login-input{
-      .login-fields{
+    .login-input {
+      .login-fields {
         text-align: center;
-        .login-header{
+
+        .login-header {
           width: 100%;
         }
-        .login-box{
+
+        .login-box {
           width: 100%;
         }
-        .input-box{
+
+        .input-box {
           width: 40%;
           padding: 8px;
           margin: 15px 0;
           font-size: 18px;
           font-family: 'Kiwi Maru';
-          border:1px solid rgb(145, 145, 145)
-
+          border: 1px solid rgb(145, 145, 145)
         }
       }
     }
   }
+}
+
+.profile-wrapper {
+  padding: 20px;
+
+  align-items: center;
+  background-color: white;
+  box-shadow: 0px 0px 10px -4px grey;
+
+  .section-title {
+    h2 {
+
+      text-align: left;
+    }
+  }
+
+  .profile-tabs {
+    width: 100%;
+    display: flex;
+
+    .user-tab {
+      border-right: 1px solid gray;
+      width: 50%;
+    }
+
+    .goals-tab {
+      width: 50%;
+      padding: 25px;
+      padding-top: 0;
+    }
+
+    .login-fields {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 20px;
+      padding-bottom: 0;
+
+      .login-header {
+        width: 100%;
+      }
+
+      .login-box {
+        width: 100%;
+      }
+
+      .input-box {
+        width: 80%;
+        padding: 8px;
+        margin: 15px 0;
+        font-size: 18px;
+        font-family: 'Kiwi Maru';
+        border: 1px solid rgb(145, 145, 145)
+      }
+    }
+  }
+
+  .password-tab {
+    width: 50%;
+  }
+
+}
+select{
+  width: 100%;
+  padding: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-family: 'Kiwi Maru';
+  border: 1px solid rgb(145, 145, 145)
 }
