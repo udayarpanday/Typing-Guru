@@ -12,6 +12,8 @@ import ReactTooltip from "react-tooltip";
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Keyboard from './Keyboard';
+import Charts from './Charts.js';
+
 
 
 const TypingLessons = (props,history) => {
@@ -259,10 +261,11 @@ const TypingLessons = (props,history) => {
         <h2>Your stats</h2>
         <Speed sec={sec} symbols={symbols}></Speed>
         <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
+        <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
         {final}
 
         <button onClick={() => 
-          setisModalOpen(false)
+           window.location.reload(true)
           }>
           Close
           </button>

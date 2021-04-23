@@ -26,7 +26,7 @@ const Home = () => {
                         <p>We value your learning experience, here you can take Nepali typing lessons for free, track your growth and even test yourself. </p>
                     </div>
                     <div className='button-section'>
-                        <button className='main-btn'>
+                        <button className='options-btn '>
                             <Link to='/lessons'>Start Lessons</Link>
                         </button>
                         <button className='main-btn'>
@@ -83,14 +83,6 @@ const Home = () => {
                                 <li>Lessons</li>
                                 <li>Tips</li>
                                 <li>Test</li>
-                            </ul>
-                        </div>
-                        <div className="footer-items">
-                            <h3>Information</h3>
-                            <ul>
-                                <li>Terms and Conditions</li>
-                                <li>Privacy Policy</li>
-                                <li>FAQ's</li>
                             </ul>
                         </div>
                         <div className="footer-items">

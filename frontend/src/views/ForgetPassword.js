@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import Header from './Header';
 
 const ForgetPassword = () => {
     const [resetData, setresetData] = useState({
@@ -17,6 +18,7 @@ const ForgetPassword = () => {
         e.preventDefault()
         if(email){
             setresetData({ ...resetData, textChange: 'Submitting' });
+            toast.success(`Please wait while your request is being processed`)
             axios.put(`${process.env.REACT_APP_API_URL}/forgotpassword`,{
                 email,
             }).then(res=>{
@@ -33,47 +35,48 @@ const ForgetPassword = () => {
         }
   
     return (
-        <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
+      <>
+      <Header/>
+      <div className='custom-container'>
       <ToastContainer />
-      <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-        <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
-          <div className='mt-12 flex flex-col items-center'>
-            <h1 className='text-2xl xl:text-3xl font-extrabold'>
-              Forgot Password
-            </h1>
-            <div className='w-full flex-1 mt-8 text-indigo-500'>
-              
-              <form
-                className='mx-auto max-w-xs relative '
-                onSubmit={handleSubmit}
-              >
-                <input
-                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
-                  type='email'
-                  placeholder='Email'
-                  onChange={handleChange('email')}
-                  value={email}
-                />
-                <button
-                  type='submit'
-                  className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                >
-                  <i className='fas fa-sign-in-alt  w-6  -ml-2' />
-                  <span className='ml-3'>Submit</span>
-                </button>
-              </form>
+      <div className='reset-wrapper'>
+          <div className='reset-items'>
+            <div className='login-form'>
+              <div className='section-title'>
+              <h1>Password Reset</h1>
+                <p style={{textAlign:'center'}}>Enter your email address that you used to register. We'll send you an email with a link to reset your password.</p>
+              </div>
+                <form onSubmit={handleSubmit}>
+                  <div className='login-input'>
+                    <div className='login-fields'>
+                      <div className='login-header'>
+                        <h4>Email Address</h4>
+                      </div>
+                      <div className='login-box'>
+                        <input
+                          type='email'
+                          placeholder='Email Address'
+                          onChange={handleChange('email')}
+                          value={email}
+                          className='input-box'
+                        />
+                      </div>
+                    <button
+                      type='submit'
+                      className='options-btn' style={{width:'18%'}}>
+                      <h3>{textChange}</h3>
+                    </button>
+                    <h4>If you still need help, contact at fyp.typingguru@gmail.com</h4>
+                  </div>
+                </div>
+                </form>
             </div>
           </div>
         </div>
-        <div className='flex-1 bg-indigo-100 text-center hidden lg:flex'>
-          <div
-            className='m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat'
-            
-          ></div>
-        </div>
-      </div>
+      
       
     </div>
+    </>
   );
   }
 

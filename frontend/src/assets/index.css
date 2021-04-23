@@ -6,7 +6,7 @@ html {
 
 body {
   height: 100%;
-  font-family: 'Kiwi Maru','Open Sans', serif;
+  font-family: 'Kiwi Maru', 'Open Sans', serif;
   font-size: 16px;
   font-weight: 300;
   background-color: whitesmoke;
@@ -33,21 +33,26 @@ a:focus {
   outline: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   padding: 0;
   margin: 0;
 }
 
 h1 {
-  font-size: 40px;
+  font-size: 36px;
 }
 
 h2 {
-  font-size: 30px;
+  font-size: 28px;
 }
 
 h3 {
-  font-size: 25px;
+  font-size: 22px;
 }
 
 p {
@@ -88,7 +93,8 @@ table {
   background-color: white;
 }
 
-td, th {
+td,
+th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
@@ -163,7 +169,7 @@ tr:nth-child(even) {
 }
 
 .sidebar-wrapper .sidebar-container .sidebar-items .login-button {
-  font-family: 'Kiwi Maru','Open Sans', serif;
+  font-family: 'Kiwi Maru', 'Open Sans', serif;
   padding: 4px 12px;
   font-size: 20px;
   border: none;
@@ -576,7 +582,7 @@ tr:nth-child(even) {
 }
 
 .test-wrapper .custom-container .test-item {
-  color: #a1a1a1;
+  color: #505050;
 }
 
 .test-wrapper .custom-container .test-item .typing-text {
@@ -697,8 +703,8 @@ textarea {
   --key-incorrect-color: #44423f;
   --key-bg-correct: #a7d4a7;
   --key-bg-incorrect: #db8d8d;
-  --key-active-blink-color:#92d5e6
-  ;
+  --key-active-blink-color: #92d5e6
+;
 }
 
 .keyboard {
@@ -709,7 +715,8 @@ textarea {
   clear: both;
 }
 
-.key, .keyboard {
+.key,
+.keyboard {
   display: -ms-grid;
   display: grid;
   padding: 1px;
@@ -731,7 +738,8 @@ textarea {
   padding: 5px;
 }
 
-.key#i32:not(.active):not(.incorrect):not(.correct), .key#i35:not(.active):not(.incorrect):not(.correct) {
+.key#i32:not(.active):not(.incorrect):not(.correct),
+.key#i35:not(.active):not(.incorrect):not(.correct) {
   background: #3b3b3b;
   border-bottom: 3px solid gray;
 }
@@ -750,7 +758,8 @@ textarea {
   color: var(-key-correct-color);
 }
 
-.key.correct, .key.incorrect {
+.key.correct,
+.key.incorrect {
   -webkit-transition: all .15s ease-in;
   transition: all .15s ease-in;
 }
@@ -773,7 +782,8 @@ textarea {
   background: var(--key-bg-correct) !important;
 }
 
-.nc-key.correct, .nc-key.incorrect {
+.nc-key.correct,
+.nc-key.incorrect {
   -webkit-transition: all .15s ease-out;
   transition: all .15s ease-out;
 }
@@ -859,11 +869,13 @@ textarea {
   text-align: right;
 }
 
-.nc-key#i13, .nc-key#i14 {
+.nc-key#i13,
+.nc-key#i14 {
   grid-column: auto/span 6;
 }
 
-.nc-key#i28, .nc-key#i40 {
+.nc-key#i28,
+.nc-key#i40 {
   grid-column: auto/span 7;
 }
 
@@ -871,7 +883,8 @@ textarea {
   text-align: right;
 }
 
-.nc-key#i41, .nc-key#i52 {
+.nc-key#i41,
+.nc-key#i52 {
   grid-column: auto/span 9;
 }
 
@@ -879,7 +892,8 @@ textarea {
   text-align: right;
 }
 
-.nc-key#i56, .nc-key#i58 {
+.nc-key#i56,
+.nc-key#i58 {
   font-size: 13px;
 }
 
@@ -888,7 +902,9 @@ textarea {
   grid-column: auto/span 25;
 }
 
-.keyboard-container:not(.full-display-mode) .key#i57.clicked, .keyboard-container:not(.full-display-mode) .key#i57.correct, .keyboard-container:not(.full-display-mode) .key#i57.incorrect {
+.keyboard-container:not(.full-display-mode) .key#i57.clicked,
+.keyboard-container:not(.full-display-mode) .key#i57.correct,
+.keyboard-container:not(.full-display-mode) .key#i57.incorrect {
   background: var(--key-bg-color) !important;
   -webkit-animation: none !important;
   animation: none !important;
@@ -929,7 +945,8 @@ textarea {
   .key .ref-primary-char {
     display: inline-block;
   }
-  .keyboard-container.themea .key, .keyboard-container.themea .nc-key {
+  .keyboard-container.themea .key,
+  .keyboard-container.themea .nc-key {
     border: none;
     border-radius: 4px;
   }
@@ -1146,20 +1163,39 @@ textarea {
 .login-wrapper .login-items .login-form {
   width: 50%;
   text-align: center;
-}
-
-.login-wrapper .login-items .login-form .options-btn {
-  border: 2px solid #00ABAF;
+  border-left: 2px solid #919191;
   padding: 15px;
-  border-radius: 25px;
-  -webkit-transition: 0.6s ease-in-out 0.2s;
-  transition: 0.6s ease-in-out 0.2s;
-  color: #00ABAF;
 }
 
-.login-wrapper .login-items .login-form .options-btn:hover {
-  background-color: #00acafad;
-  color: white;
+.login-wrapper .login-items .login-form .login-input .login-fields {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 20px;
+  padding-bottom: 0;
+}
+
+.login-wrapper .login-items .login-form .login-input .login-fields .login-header {
+  width: 100%;
+}
+
+.login-wrapper .login-items .login-form .login-input .login-fields .login-box {
+  width: 100%;
+}
+
+.login-wrapper .login-items .login-form .login-input .login-fields .input-box {
+  width: 65%;
+  padding: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-family: 'Kiwi Maru';
+  border: 1px solid #919191;
+}
+
+.login-wrapper .login-items .login-form .register-section {
+  padding: 20px;
 }
 
 .card-view {
@@ -1167,5 +1203,83 @@ textarea {
           box-shadow: 0px 0px 16px -4px grey;
   margin: 0px 15px;
   background-color: white;
+}
+
+.modal-wrapper .section-title {
+  text-align: center;
+}
+
+.modal-wrapper .results-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: center;
+}
+
+.modal-wrapper .results-wrapper .result-speed {
+  width: 33.33%;
+  padding: 20px;
+}
+
+.modal-wrapper .results-wrapper .result-acc {
+  width: 33.33%;
+  padding: 20px;
+}
+
+.modal-wrapper .results-wrapper .result-time {
+  width: 33.33%;
+  padding: 20px;
+}
+
+.modal-wrapper .result-chart {
+  text-align: -webkit-center;
+  padding: 30px;
+}
+
+.options-btn {
+  margin: 10px;
+  border: 1.8px solid #00ABAF;
+  padding: 10px;
+  border-radius: 25px;
+  -webkit-transition: 0.6s ease-in-out 0.2s;
+  transition: 0.6s ease-in-out 0.2s;
+  color: #00ABAF;
+}
+
+.options-btn:hover {
+  background-color: #00acafad;
+  color: white;
+}
+
+.options-btn.button {
+  width: 45%;
+}
+
+.reset-wrapper .reset-items {
+  padding: 20px;
+  background-color: white;
+  -webkit-box-shadow: 0px 0px 16px -4px grey;
+          box-shadow: 0px 0px 16px -4px grey;
+}
+
+.reset-wrapper .reset-items .login-input .login-fields {
+  text-align: center;
+}
+
+.reset-wrapper .reset-items .login-input .login-fields .login-header {
+  width: 100%;
+}
+
+.reset-wrapper .reset-items .login-input .login-fields .login-box {
+  width: 100%;
+}
+
+.reset-wrapper .reset-items .login-input .login-fields .input-box {
+  width: 40%;
+  padding: 8px;
+  margin: 15px 0;
+  font-size: 18px;
+  font-family: 'Kiwi Maru';
+  border: 1px solid #919191;
 }
 /*# sourceMappingURL=index.css.map */

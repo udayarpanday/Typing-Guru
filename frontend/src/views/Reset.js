@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-// import authSvg from '../assests/reset.svg';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import Header from './Header';
 const ResetPassword = ({match}) => {
   const [changeData, setchangeData] = useState({
       password1: '',
@@ -14,6 +14,7 @@ const ResetPassword = ({match}) => {
     
     useEffect(() => {
         let token = match.params.token
+        console.log(match.params)
         if(token) {
             setchangeData({...changeData, token,})
         }
@@ -43,13 +44,74 @@ const ResetPassword = ({match}) => {
           
         })
         .catch(err => {
-          toast.error('Something is wrong try again');
+          toast.error('Try again and make sure password have 6 characters');
         });
     } else {
       toast.error('Passwords don\'t matches');
     }
   };
   return (
+    <>
+    <Header/>
+    <div className='custom-container'>
+      <ToastContainer />
+    <div className='reset-wrapper'>
+          <div className='reset-items'>
+            <div className='login-form'>
+              <div className='section-title'>
+              <h1>Password Reset</h1>
+              </div>
+                <form onSubmit={handleSubmit}>
+                  <div className='login-input'>
+                    <div className='login-fields'>
+                      <div className='login-header'>
+                        <h4>Password</h4>
+                      </div>
+                      <div className='login-box'>
+                        <input
+                          type='password'
+                          placeholder='Password'
+                          onChange={handleChange('password1')}
+                          value={password1}
+                          className='input-box'
+                        />
+                      </div>
+                      <div className='login-header'>
+                        <h4>Confirm Password</h4>
+                      </div>
+                      <div className='login-box'>
+                        <input
+                          type='password'
+                          placeholder='Confirm password'
+                          onChange={handleChange('password2')}
+                          value={password2}
+                          className='input-box'
+                        />
+                      </div>
+                      <h4>Tip:Enter your password at least 6 characters long</h4>
+                                        
+                    <button
+                      type='submit'
+                      className='options-btn' style={{width:'18%'}}>
+                      <h3>{textChange}</h3>
+                    </button>
+                    <hr style={{width:'50%'}}></hr>
+                <div className='register-section'>
+                  <h4>Login after password change</h4>
+                  <button className='options-btn '>
+                    <a href='/register' target='_self'>
+                      <h3 style={{ color: '#00ABAF' }} >Sign Up</h3>
+                    </a>
+                  </button>
+                </div>
+                  </div>
+                </div>
+                </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      
     <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
       <ToastContainer />
       <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
@@ -83,7 +145,7 @@ const ResetPassword = ({match}) => {
                   className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
                 >
                   <i className='fas fa-sign-in-alt  w-6  -ml-2' />
-                  <span className='ml-3'>Submit</span>
+                  <span className='ml-3'>{textChange}</span>
                 </button>
                 <Link
                   to='/login'
@@ -106,6 +168,7 @@ const ResetPassword = ({match}) => {
       </div>
       
     </div>
+    </>
   );
 };
 

@@ -114,26 +114,27 @@ const Stats = ({ history, props }) => {
             <div className='section-title'>
               <h1>Recent Practices</h1>
             </div>
-            {state && Object.values(state).map((data) => {
-              if (data.stats) {
-                avgSpeed.push(data.stats.Speed)
-                avgAcc.push(data.stats.Accuracy)
-                totalTime.push((data.stats.Time))
-                avgTime = totalTime.reduce((a, b) => a + b, 0)
-                totalDate.push((data.stats.Date).slice("", 24))
-                totalDate.sort()
 
-                return (
-                  <div className='stats-items'>
-                    <div className='inner'>
-                      <table>
-                        <tr>
-                          <th>Lesson Name</th>
-                          <th>Speed</th>
-                          <th>Accuracy</th>
-                          <th>Time</th>
-                          <th>Date</th>
-                        </tr>
+
+            <div className='stats-items'>
+              <div className='inner'>
+                <table>
+                  <tr>
+                    <th>Lesson Name</th>
+                    <th>Speed</th>
+                    <th>Accuracy</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                  </tr>
+                  {state && Object.values(state).map((data) => {
+                    if (data.stats) {
+                      avgSpeed.push(data.stats.Speed)
+                      avgAcc.push(data.stats.Accuracy)
+                      totalTime.push((data.stats.Time))
+                      avgTime = totalTime.reduce((a, b) => a + b, 0)
+                      totalDate.push((data.stats.Date).slice("", 24))
+                      totalDate.sort()
+                      return (
                         <tr>
                           <td>{data.lessons}</td>
                           <td>{data.stats.Speed} wpm</td>
@@ -141,13 +142,14 @@ const Stats = ({ history, props }) => {
                           <td>{timer(data.stats.Time)} hour</td>
                           <td>{(data.stats.Date).slice("", 24)}</td>
                         </tr>
-                      </table>
-                    </div>
-                  </div>
-                )
-              }
-            })
-            }
+                      )
+                    }
+                  })
+                  }
+                </table>
+              </div>
+            </div>
+
           </div>
           <div className='main-stats'>
             <div className='stats-board'>
@@ -202,13 +204,13 @@ const Stats = ({ history, props }) => {
                 }}
               />
             </div>
-            </div>
-            <div className='progress-overview'>
+          </div>
+          <div className='progress-overview'>
             <div className='section-title'>
               <h1>Time Practiced</h1>
             </div>
             <div className='card-view'>
-            <Bar
+              <Bar
                 data={BarData}
                 options={{
                   legend: {

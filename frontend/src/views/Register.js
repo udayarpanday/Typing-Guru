@@ -1,141 +1,153 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 // import authSvg from '../assets/auth.svg';
-import{ToastContainer,toast} from 'react-toastify';
-import {authenticate,isAuth} from '../helpers/auth';
+import { ToastContainer, toast } from 'react-toastify';
+import { authenticate, isAuth } from '../helpers/auth';
 import axios from 'axios';
-import {Redirect} from 'react-dom';
+import { Redirect } from 'react-dom';
+import Header from './Header';
 
 const Register = () => {
-    const [formData, setFormData] = useState({
-        name:"",
-        email:"",
-        password:"",
-        confirmpass:"",
-        textChange: 'Sign Up'
-    })
-    const{email,name,password,confirmpass,textChange}=formData
-    //handle change from inputs
-    const handleChange=text=>e=>{
-        setFormData({...formData,[text]:e.target.value})
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmpass: "",
+    textChange: 'Sign Up'
+  })
+  const { email, name, password, confirmpass, textChange } = formData
+  //handle change from inputs
+  const handleChange = text => e => {
+    setFormData({ ...formData, [text]: e.target.value })
+  }
+  //submit data to backend
+  const handleSubmit = e => {
+    e.preventDefault()
+    if (name && email && password) {
+      if (password === confirmpass) {
+        setFormData({ ...formData, textChange: 'Submitting' });
+        axios.post(`${process.env.REACT_APP_API_URL}/register`, {
+          name,
+          email,
+          password: confirmpass
+        }).then(res => {
+          setFormData({
+            ...formData,
+            name: '',
+            email: '',
+            password: '',
+            confirmpass: '',
+            textChange: 'Sign In'
+          })
+          toast.success(res.data.message)
+        }).catch(err => {
+          setFormData({
+            ...formData,
+            name: '',
+            email: '',
+            password: '',
+            confirmpass: '',
+            textChange: 'Sign Up'
+          });
+          console.log(err.response);
+          toast.error(err.response.data.errors);
+        });
+      } else {
+        toast.error('The two passwords must match')
+      }
+    } else {
+      toast.error('Please fill all the fields')
     }
-    //submit data to backend
-    const handleSubmit=e=>{
-        e.preventDefault()
-        if(name &&email && password){
-            if(password===confirmpass){
-                setFormData({ ...formData, textChange: 'Submitting' });
-                axios.post(`${process.env.REACT_APP_API_URL}/register`,{
-                    name,
-                    email,
-                    password:confirmpass
-                }).then(res=>{
-                    setFormData({
-                        ...formData,
-                        name:'',
-                        email:'',
-                        password:'',
-                        confirmpass:'',
-                        textChange: 'Sign In'
-                    })
-                    toast.success(res.data.message)
-                }).catch(err=>{
-                    setFormData({
-                        ...formData,
-                        name: '',
-                        email: '',
-                        password: '',
-                        confirmpass: '',
-                        textChange: 'Sign Up'
-                      });
-                      console.log(err.response);
-                      toast.error(err.response.data.errors);
-                    });
-            }else{
-                toast.error('The two passwords must match')
-            }
-        }else{
-            toast.error('Please fill all the fields')
-        }
-    }
-    return (
-        <div className='min-h-screen bg-gray-100 text-gray-900 flex justify-center'>
+  }
+  return (
+    <>
+    <Header/>
+    <div className='custom-container'>
       {isAuth() ? <Redirect to='/' /> : null}
       <ToastContainer />
-      <div className='max-w-screen-xl m-0 sm:m-20 bg-white shadow sm:rounded-lg flex justify-center flex-1'>
-        <div className='lg:w-1/2 xl:w-5/12 p-6 sm:p-12'>
-          <div className='mt-12 flex flex-col items-center'>
-            <h1 className='text-2xl xl:text-3xl font-extrabold'>
-              Sign Up for Typing Guru
-            </h1>
+      <div className='login-wrapper'>
+        <div className='login-items'>
+          <div className='banner-image'>
+            <div className='section-title'>
+              <h1>Sign Up for Typing Guru</h1>
+            </div>
+          </div>
+          <div className='login-form'>
+            <form onSubmit={handleSubmit}>
+              <div className='login-input'>
+                <h2>Sign up with your email address</h2>
+                <div className='login-fields'>
+                  <div className='login-header'>
+                    <h4>Full Name</h4>
+                  </div>
+                  <div className='login-box'>
+                    <input
+                      type='text'
+                      placeholder='Name'
+                      onChange={handleChange('name')}
+                      value={name}
+                      className='input-box'
+                    />
+                  </div>
+                  <div className='login-header'>
+                    <h4>Email Address</h4>
+                  </div>
+                  <div className='login-box'>
+                    <input
+                      type='email'
+                      placeholder='Email'
+                      onChange={handleChange('email')}
+                      className='input-box'
+                    />
+                  </div>
+                  <div className='login-header'>
+                    <h4>Password</h4>
+                  </div>
+                  <div className='login-box'>
+                    <input
+                      type='password'
+                      placeholder='Password'
+                      onChange={handleChange('password')}
+                      value={password}
+                      className='input-box'
+                    />
+                  </div>
+                  <div className='login-header'>
+                    <h4>Confirm Password</h4>
+                  </div>
+                  <div className='login-box'>
+                    <input
+                      type='password'
+                      placeholder='Confirm Password'
+                      onChange={handleChange('confirmpass')}
+                      value={confirmpass}
+                      className='input-box'
+                    />
+                  </div>
 
-            <form
-              className='w-full flex-1 mt-8 text-indigo-500'
-              onSubmit={handleSubmit}
-            >
-              <div className='mx-auto max-w-xs relative '>
-                <input
-                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white'
-                  type='text'
-                  placeholder='Name'
-                  onChange={handleChange('name')}
-                  value={name}
-                />
-                <input
-                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
-                  type='email'
-                  placeholder='Email'
-                  onChange={handleChange('email')}
-                  value={email}
-                />
-                <input
-                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
-                  type='password'
-                  placeholder='Password'
-                  onChange={handleChange('password')}
-                  value={password}
-                />
-                <input
-                  className='w-full px-8 py-4 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-sm focus:outline-none focus:border-gray-400 focus:bg-white mt-5'
-                  type='password'
-                  placeholder='Confirm Password'
-                  onChange={handleChange('confirmpass')}
-                  value={confirmpass}
-                />
+                </div>
                 <button
                   type='submit'
-                  className='mt-5 tracking-wide font-semibold bg-indigo-500 text-gray-100 w-full py-4 rounded-lg hover:bg-indigo-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none'
-                >
-                  <i className='fas fa-user-plus fa 1x w-6  -ml-2' />
-                  <span className='ml-3'>{textChange}</span>
+                  className='options-btn button'>
+                  <h3>{textChange}</h3>
                 </button>
-              </div>
-              <div className='my-12 border-b text-center'>
-                <div className='leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2'>
-                  Or sign with email or social login
-                </div>
-              </div>
-              <div className='flex flex-col items-center'>
-                <a
-                  className='w-full max-w-xs font-bold shadow-sm rounded-lg py-3
-           bg-indigo-100 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline mt-5'
-                  href='/login'
-                  target='_self'
-                >
-                  <i className='fas fa-sign-in-alt fa 1x w-6  -ml-2 text-indigo-500' />
-                  <span className='ml-4'>Sign In</span>
-                </a>
+
               </div>
             </form>
+            <hr></hr>
+            <div className='register-section'>
+
+              <h4>Have an Account?</h4>
+              <button className='options-btn button'>
+                <a href='/login' target='_self' >
+                <h3  style={{ color: '#00ABAF' }}>Sign In</h3>
+                </a>
+              </button>
+            </div>
           </div>
-        </div>
-        <div className='flex-1 bg-indigo-100 text-center hidden lg:flex'>
-          <div
-            className='m-12 xl:m-16 w-full bg-contain bg-center bg-no-repeat'
-            
-          ></div>
         </div>
       </div>
     </div>
+    </>
   );
 }
 
