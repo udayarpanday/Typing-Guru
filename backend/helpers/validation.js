@@ -1,7 +1,7 @@
 // Validations Helpers
 const {check}=require('express-validator');
 
-//Register
+//Register Validation
 exports.validRegister = [
     check('name', 'Name is required').notEmpty()
     .isLength({
@@ -17,7 +17,7 @@ exports.validRegister = [
     }).withMessage('Password must contain at least 6 characters').matches(/\d/).withMessage('password must contain a number')
 ]
 
-//Login
+//Login Validation
 exports.validLogin=[
     check('email')
     .isEmail()
@@ -28,7 +28,7 @@ exports.validLogin=[
     }).withMessage('Password must contain at least 6 characters').matches(/\d/).withMessage('Your password must contain a number')
 ]
 
-//Forget Password
+//Forget Password Validation
 exports.forgotPasswordValidation=[
     check('email')
     .not()
@@ -37,7 +37,7 @@ exports.forgotPasswordValidation=[
     .withMessage('Must be a valid email address')
 ];
 
-//Reset Password
+//Reset Password Validation
 exports.resetPasswordValidator=[
     check('newPassword')
         .not()

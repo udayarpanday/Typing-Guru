@@ -10,13 +10,13 @@ import Modal from 'react-modal'
 import { Dropdown } from 'react-bootstrap'
 import ReactTooltip from "react-tooltip";
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Keyboard from './Keyboard';
 import Charts from './Charts.js';
 
 
 
-const TypingLessons = (props,history) => {
+const TypingLessons = (props, history) => {
   const id = JSON.parse(localStorage.getItem('user'))
   function getfocus() {
     document.getElementById('mytext').focus();
@@ -38,7 +38,7 @@ const TypingLessons = (props,history) => {
       let total_words = userInput.replace(' ', '');
       accuracy = (symbols / total_words.length) * 100
       return Math.round(accuracy)
-    }else{
+    } else {
       return 0
     }
   }
@@ -54,7 +54,7 @@ const TypingLessons = (props,history) => {
 
         })
       .then(res => {
-        toast.success('Updated')
+        toast.success('Stats Updated')
       })
       .catch(err => {
         toast.error('Error')
@@ -258,17 +258,38 @@ const TypingLessons = (props,history) => {
         </div>
       </section>
       <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={() => setisModalOpen(false)}>
-        <h2>Your stats</h2>
-        <Speed sec={sec} symbols={symbols}></Speed>
-        <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
-        <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
-        {final}
 
-        <button onClick={() => 
-           window.location.reload(true)
-          }>
-          Close
-          </button>
+        <div className='modal-wrapper'>
+          <div clasName='section-title'>
+            <h1>Test Results</h1>
+          </div>
+          <div className='custom-container'>
+            <div className='results-wrapper'>
+              <div className='result-speed card-view'>
+                <h3>Speed</h3>
+                <Speed sec={sec} symbols={symbols}></Speed>
+              </div>
+              <div className='result-acc card-view'>
+                <h3>Accuracy</h3>
+                <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
+              </div>
+              <div className='result-time card-view'>
+                <h3>Time</h3>
+                {final}s
+            </div>
+            </div>
+            <div className='result-chart'>
+              <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
+            </div>
+
+          </div>
+        </div>
+        <div style={{ textAlign: 'center', }}>
+          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%' }} onClick={() => window.location.reload(true)}>
+            Close
+            </button>
+
+        </div>
 
       </Modal>
       <Keyboard />

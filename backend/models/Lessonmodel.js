@@ -42,8 +42,5 @@ const Lessons = new mongoose.Schema(
   }
 );
 
-// virtual
-
 
 module.exports = mongoose.model('Lessons', Lessons);
-// module.exports = mongoose.model('Stats', statsSchema);

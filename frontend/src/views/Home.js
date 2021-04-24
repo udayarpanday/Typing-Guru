@@ -11,12 +11,6 @@ const Home = () => {
       <Header/>
       <section className="image-wrapper">
         <div className="background-image" >
-        {/* <div style={{width:'100%',height:'0',paddingBottom:'100%',position:'relative'}}>
-            <iframe src="https://giphy.com/embed/pOZhmE42D1WrCWATLK" width="100%" height="100%" style={{position:'absolute'}} frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-            </div>
-            <p>
-                <a href="https://giphy.com/gifs/animation-work-job-pOZhmE42D1WrCWATLK">via GIPHY</a>
-                </p> */}
             <div className="custom-container">
                 <div className="background-container">
                     <div className="section-title">

@@ -283,9 +283,9 @@ const Keyboard = (props) => {
               <div id='i59' className='nc-key'>
                 <span className="nc-key-text">Option</span>
               </div>
-              <div className='key-placeholder'/>
-              </div>
-            </ div>
+              <div className='key-placeholder' />
+            </div>
+          </ div>
         </div>
       </section>
     </>

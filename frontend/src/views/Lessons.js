@@ -39,7 +39,7 @@ const Lessons = (props) => {
                     <div className='section-title'>
                         <h1>Typing Lessons</h1>
                     </div>
-                        <p>Here are some of the lessons labeled as number pratice as per the number and test your ability after ending all the practised lessons</p>
+                    <p>Here are some of the lessons labeled as number pratice as per the number and test your ability after ending all the practised lessons</p>
                     <div className='lessons-container'>
                         {state && state.map((data) => {
                             type.push(data.lessontype)
@@ -55,9 +55,9 @@ const Lessons = (props) => {
                                             <div className='inner'>
 
                                                 <div>
-                                                    {/* <h2>{data.lessontype}</h2> */}
+                                                    <h4>{data.lessontype}</h4>
                                                     <h3>{data.lessonname}</h3>
-                                                    <p>{data.lessondetails}</p>
+                                                    <h2 style={{ fontFamily: 'Devanagari' }}>{data.lessondetails}</h2>
                                                 </div>
                                             </div>
                                             {/* <div className='stats-details'>

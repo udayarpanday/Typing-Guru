@@ -166,7 +166,6 @@ const Profile = ({ history }) => {
 
                       });
                     }}
-
                   >
                     <h4 className='ml-3'>Signout</h4>
                   </button>
@@ -187,7 +186,7 @@ const Profile = ({ history }) => {
                 <option value="60min">50 minutes</option>
               </select>
 
-            <div className='login-header'>
+              <div className='login-header'>
                 <h5>Weekly Goals</h5>
               </div>
               <select name="daily" id="daily">
@@ -196,7 +195,7 @@ const Profile = ({ history }) => {
                 <option value="3hr">3 hour</option>
                 <option value="4hr">4 hour</option>
               </select>
-            <p>Set personal goals both daily and weekly to track yourself of how much your are practicing and also 
+              <p>Set personal goals both daily and weekly to track yourself of how much your are practicing and also
               perform times ocasionally to test how your typing has increased.
             </p>
             </div>

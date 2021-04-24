@@ -1,5 +1,5 @@
 import React from 'react';
-import { Line, Bar,  } from 'react-chartjs-2'
+import { Line, Bar, } from 'react-chartjs-2'
 let total_wpm = []
 let total_acc = []
 let wpm
@@ -16,43 +16,32 @@ const Data = {
             data: total_wpm
         },
         {
-            label: 'Accuracy',
-            fill: false,
-            lineTension: 0.5,
-            backgroundColor: 'rgba(95,192,92,1)',
-            borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
-            data: total_acc
-        },
-        {
-            type:'line',
+            type: 'line',
             label: 'Average User Speed',
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(95,192,92,1)',
+            backgroundColor: 'rgba(15,82,112,1)',
             borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
             data: [40]
         },
         {
-            type:'line',
+            type: 'line',
             label: 'Intermediate User Speed',
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(95,192,92,1)',
+            backgroundColor: 'rgba(225,192,92,1)',
             borderColor: 'rgba(0,0,0,1)',
-            borderWidth: 2,
             data: [80]
         }
     ]
 }
 
-const Level=()=>{
-    if(wpm<30){
+const Level = () => {
+    if (wpm < 30) {
         return <h2>Looks like you need more practise continue on with the lessons.</h2>
-    }else if(wpm<80){
+    } else if (wpm < 80) {
         return <h2>Great Job! You are typing as an average Nepali typist continue with the lessons to improve.</h2>
-    }else{
+    } else {
         return <h2>WOW...You are offically a typing guru now.</h2>
     }
 }
@@ -70,36 +59,33 @@ export default (props) => {
 
         return (
             <>
-            <div style={{height:'250px',width:'500px'}}>
-            <Bar
-                    data={Data}
-                    options={{
-                        legend: {
-                            display: true,
-                            position: 'top'
-                        },
-                        responsive:true,
-                        scale:{
-                            yAxes:[{
-                                ticks:{
-                                    autoSkip:true,
-                                    maxTicksLimit:10,
-                                    beginAtZero:true
+                <div style={{ height: '250px', width: '500px' }}>
+                    <Bar
+                        data={Data}
+                        options={{
+                            legend: {
+                                display: true,
+                                position: 'top'
+                            },
+                            responsive: true,
+                            scale: {
+                                yAxes: [{
+
+                                    beginAtZero: true
                                 }
+
+                                ]
+
                             }
-                               
-                            ]
 
-                        }
-
-                    }}
-                />
-            </div>
-            <div>
-               {Level()}
-            </div>
+                        }}
+                    />
+                </div>
+                <div>
+                    {Level()}
+                </div>
             </>
-               
+
         )
 
     }

@@ -9,13 +9,11 @@ const { readController, updateController } = require('../controllers/usercontrol
 router.get('/user/:id', requireSignin, readController);
 router.put('/user/update', requireSignin, updateController);
 router.get('/stats',requireSignin, readController);
-// router.put('/user/update', requireSignin, updateController);
 router.post('/lessons',insertLessons)
 router.get('/lessons',getLessons);
 router.get('/lessons/:id',getOneLessons,updateStats);
 router.put('/lessons/:id',updateStats);
 router.get('/stats/:id',requireSignin,getStats)
-// router.get('/typing-test', updateStats);
 
 
 module.exports = router;

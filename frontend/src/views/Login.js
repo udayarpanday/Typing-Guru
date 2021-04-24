@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
+import Logo from '../assets/Logo.png'
+import TypingSS from '../assets/Typing-SS.png';
 import { authenticate, isAuth } from '../helpers/auth';
 import { Link, Redirect } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
@@ -87,14 +89,16 @@ const Login = ({ history }) => {
   return (
     <>
       <Header />
-      <div className='auth-container'>
+      <div className='custom-container'>
         {isAuth() ? <Redirect to='/' /> : null}
         <ToastContainer />
         <div className='login-wrapper'>
           <div className='login-items'>
             <div className='banner-image'>
               <div className='section-title'>
-                <h1>Sign Up for Typing Guru</h1>
+                <h1>Sign In for Typing Guru</h1>
+                <img src={Logo} alt="Logo" style={{ width: '100%', height: '100%' }} />
+                <p style={{ textAlign: 'center' }}>Learn and test yourself of how good you are with Nepali typing </p>
               </div>
             </div>
             <div className='login-form'>
@@ -118,7 +122,7 @@ const Login = ({ history }) => {
               </div>
 
               <div>
-              <hr style={{width:'75%'}}></hr>
+                <hr style={{ width: '75%' }}></hr>
                 <h4>Or with Sign In With E-mail</h4>
                 <form onSubmit={handleSubmit}>
                   <div className='login-input'>
@@ -158,7 +162,7 @@ const Login = ({ history }) => {
                     Forgot password?
                 </Link>
                 </form>
-                <hr style={{width:'75%'}}></hr>
+                <hr style={{ width: '75%' }}></hr>
                 <div className='register-section'>
                   <h4>Don't have an account?</h4>
                   <button className='options-btn button'>

@@ -166,10 +166,10 @@ const TypingTest = () => {
                   <FaStopwatch size='32px' data-tip data-for="timerTip" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={() => setSeconds(15)}>15 seconds</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSeconds(30)}>30 seconds</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSeconds(60)}>60 seconds</Dropdown.Item>
+                <Dropdown.Menu style={{ display: 'grid' }}>
+                  <Dropdown.Item onClick={() => setSeconds(15)} style={{ border: '1px solid' }}>15 seconds</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setSeconds(30)} style={{ border: '1px solid' }}>30 seconds</Dropdown.Item>
+                  <Dropdown.Item onClick={() => setSeconds(60)} style={{ border: '1px solid' }}>60 seconds</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <ReactTooltip id="timerTip" place="top" effect="solid">
@@ -180,7 +180,7 @@ const TypingTest = () => {
                   <FaCog size='32px' data-tip data-for="settingsTip" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu style={{ display: 'grid' }}>
                   <Dropdown.Item onClick={onRestart}>Dark Mode</Dropdown.Item>
                   <Dropdown.Item onClick={() => setKeyboard({ ...keyboard, display: 'none', textChange: 'Show Key' })}>{textChange}</Dropdown.Item>
                   {/* <Dropdown.Item onclick={onRestart}>Something else</Dropdown.Item> */}
@@ -238,19 +238,18 @@ const TypingTest = () => {
             </div>
             </div>
             <div className='result-chart'>
-            <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
+              <Charts sec={sec} symbols={symbols} text={text} userInput={userInput}></Charts>
             </div>
 
           </div>
         </div>
 
-        <button onClick={() =>
+        <div style={{ textAlign: 'center', }}>
+          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%' }} onClick={() => window.location.reload(true)}>
+            Close
+            </button>
 
-          window.location.reload(true)
-
-        }>
-          Close
-          </button>
+        </div>
 
       </Modal>
       <Keyboard />
