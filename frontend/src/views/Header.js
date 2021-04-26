@@ -26,7 +26,6 @@ const Header = () => {
             setName({ ...username, names: 'Login' })
         }
         else {
-            //   toast.success(`Hello ${user.name}`)
             const name = user.name.split(" ")[0]
             setName({ ...username, names: name })
         }
@@ -42,9 +41,8 @@ const Header = () => {
                         </button>
                     </div>
                     <div className='sidebar-items'>
-                        {/* <img src={Logo} alt="Logo" /> */}
                         <Link to='/'>
-                            <h1>Typing Guru</h1>
+                            <h1 style={{color:'#00ABAF'}}>Typing Guru</h1>
                         </Link>
                     </div>
                     <div className='sidebar-items'>

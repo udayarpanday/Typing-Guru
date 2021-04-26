@@ -139,12 +139,6 @@ const TypingLessons = (props, history) => {
     }
   }
   const onRestart = () => {
-    // setUserInput('')
-    // setSymbols(0)
-    // setSec(0)
-    // setStarted(false)
-    // setFinished(false)
-    // clearInterval(start);
     window.location.reload(true)
   }
 

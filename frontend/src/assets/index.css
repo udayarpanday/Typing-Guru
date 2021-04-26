@@ -487,17 +487,11 @@ tr:nth-child(even) {
 }
 
 .footer-section {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-  margin: 0 -55px;
+  text-align: center;
 }
 
 .footer-items {
-  width: 25%;
-  padding: 0 55px;
+  width: 100%;
 }
 
 .footer-items h3 {

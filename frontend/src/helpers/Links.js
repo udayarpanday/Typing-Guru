@@ -39,8 +39,8 @@ export const links = [
   },
   {
     id: 5,
-    url: '/tips',
-    title: 'Tips',
+    url: '/profile',
+    title: 'Profile',
     className:'nav-text',
     icon: <FaLightbulb />,
   },

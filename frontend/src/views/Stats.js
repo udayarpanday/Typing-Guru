@@ -7,6 +7,7 @@ import Header from './Header'
 import { Spinner } from 'react-bootstrap'
 
 import { Line, Bar } from 'react-chartjs-2'
+import Footer from './Footer';
 
 
 const Stats = ({ history, props }) => {
@@ -223,6 +224,7 @@ const Stats = ({ history, props }) => {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   )
 }

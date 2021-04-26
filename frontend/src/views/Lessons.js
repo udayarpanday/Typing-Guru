@@ -3,6 +3,7 @@ import Header from './Header'
 import axios from 'axios';
 import { Spinner } from 'react-bootstrap'
 import Stats from './Stats';
+import Footer from './Footer';
 
 
 const Lessons = (props) => {
@@ -60,19 +61,6 @@ const Lessons = (props) => {
                                                     <h2 style={{ fontFamily: 'Devanagari' }}>{data.lessondetails}</h2>
                                                 </div>
                                             </div>
-                                            {/* <div className='stats-details'>
-                                        {/* <h4>Completed:</h4>
-                                            {data.stats.forEach((stat)=> { 
-                                                if(stat.completed=='false'){
-                                                    complete='false'
-                                                }else{
-                                                    complete='true'
-                                                }
-                                                })}
-                                                {complete}
-
-                                        <h4>Stars</h4> 
-                                     </div> */}
                                         </button>
                                     </div>
                                 </>
@@ -81,6 +69,7 @@ const Lessons = (props) => {
                     </div>
                 </div>
             </div>
+            <Footer/>
         </>
     )
 }

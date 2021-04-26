@@ -3,7 +3,7 @@ const router = express.Router();
 
 // import controller
 const { requireSignin } = require('../controllers/authcontroller');
-const { getText, insertLessons,getLessons,getOneLessons,updateStats, findUser, getStats } = require('../controllers/common-controller');
+const {  insertLessons,getLessons,getOneLessons,updateStats, getStats } = require('../controllers/common-controller');
 const { readController, updateController } = require('../controllers/usercontroller');
 
 router.get('/user/:id', requireSignin, readController);

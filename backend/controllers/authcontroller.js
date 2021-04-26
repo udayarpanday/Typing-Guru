@@ -23,7 +23,7 @@ exports.registerController = (req, res) => {
     },
     process.env.JWT_ACCOUNT_ACTIVATION,
     {
-      expiresIn: '5m'
+      expiresIn: '15m'
     }
   );
   const transporter = nodemailer.createTransport({
@@ -305,8 +305,8 @@ exports.resetPasswordController = (req, res) => {
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT)
 exports.googleController = (req, res) => {
-  const { idToken } = req.body
   //Get token from request
+  const { idToken } = req.body
 
   //Verify Token
   client.verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT })
@@ -323,7 +323,7 @@ exports.googleController = (req, res) => {
               expiresIn: '7d' //token validation
             })
             const { _id, email, name } = user;
-            //send response to client side(react) token and user info
+            //send response to frontedn with token and user info
             return res.json({
               token,
               user: { _id, email, name }
@@ -331,7 +331,7 @@ exports.googleController = (req, res) => {
           } else {
             //If user does not exists, save in db and generate a password
             let password = email + process.env.JWT_SECRET;
-            user = new User({ name, email, password })  //create uer object with this email
+            user = new User({ name, email, password })  //create user object with this email
             user.save((err, data) => {
               if (err) {
                 return res.status(400).json({

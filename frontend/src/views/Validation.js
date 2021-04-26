@@ -34,11 +34,7 @@ const Test = (props) => {
 
         })
       }
-      {mistake}
-      <div style={{ display: 'flex', fontFamily: 'Devanagari' }}>
-
-        {misChar}
-      </div>
+      
     </div>
   )
 }

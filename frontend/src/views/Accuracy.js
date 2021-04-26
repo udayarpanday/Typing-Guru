@@ -6,7 +6,7 @@ export default (props) => {
         let symbols = props.symbols                       //Number of correct words
         let total_words = props.userInput.replace(' ', '');//Total user input
         if (props.userInput) {
-            accuracy = (symbols / total_words.length) * 100
+            accuracy = (symbols / total_words.length) * 100     //calculate accuracy
         } else {
             accuracy = 0
         }

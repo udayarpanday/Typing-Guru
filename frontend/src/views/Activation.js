@@ -7,7 +7,7 @@ import { Redirect } from 'react-dom';
 import Header from './Header';
 
 
-const Activation = ({ match, history }) => {
+const Activation = ({ match }) => {
   const [activeData, setactiveData] = useState({
     data: '',
     token: '',
@@ -30,7 +30,6 @@ const Activation = ({ match, history }) => {
       token
     }).then(res => {
       setactiveData({ ...activeData, show: false })
-      history.push('/login')
       toast.success(res.data.message);
 
     })

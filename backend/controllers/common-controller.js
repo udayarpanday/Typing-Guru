@@ -30,7 +30,6 @@ exports.getOneLessons = (req, res) => {
 
 exports.updateStats = (req, res) => {
     const { speed, accuracy, time, date, completed, user_id } = req.body
-    console.log(user_id)
     var stats = { "Speed": speed, "Accuracy": accuracy, "Time": time, date, "user_id": user_id, "completed": completed }
     Lessons.findOne({ _id: req.params.id }).exec((err, data) => {
         data.stats.push(stats)
@@ -49,9 +48,7 @@ exports.updateStats = (req, res) => {
 exports.getStats = (req, res) => {
     const { id } = req.params;
     let items = { push: function push(element) { [].push.call(this, element) } };
-
     Lessons.find({}).exec((err, data) => {
-        // console.log(data);
         data.map((lessons => {
             lessons.stats.forEach(function (element) {
                 if (String(element.user_id) === id) {
@@ -66,6 +63,3 @@ exports.getStats = (req, res) => {
     })
 
 }
-
-
-

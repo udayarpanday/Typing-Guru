@@ -458,14 +458,11 @@ tr:nth-child(even) {
 }
 
 .footer-section {
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 -55px;
+  text-align: center;
 }
 
 .footer-items {
-  width: 25%;
-  padding: 0 55px;
+  width: 100%;
 }
 
 .footer-items h3 {

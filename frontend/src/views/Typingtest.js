@@ -23,7 +23,7 @@ const TypingTest = () => {
   useEffect(() => {
     getfocus()
   })
-  const [text, setText] = useState('asdf asd as a a as asd asdf');
+  const [text, setText] = useState('sfठमाडौँ — नेपाली विद्यार्थीहरुले बनाएको "गरुडा" रकेट धनुषाको भिमानमा करिब डेढसय मिटर अपलिफ्ट भएर खसेको छ । ');
 
   const [userInput, setUserInput] = useState('');
   const [symbols, setSymbols] = useState('');
@@ -41,15 +41,13 @@ const TypingTest = () => {
     textChange: 'Hide Keyboard',
     display: 'block'
   })
-  // const [opacity,setOpacity]=useState(0)
+  const [opacity,setOpacity]=useState(0)
   const { display, textChange } = keyboard
 
 
   let interval = useRef(null)
 
-
-
-
+  //functions on on your user input change
   const onUserInputChange = (input) => {
     const value = input.target.value;
     WPMcount();
@@ -60,7 +58,7 @@ const TypingTest = () => {
     setNext(nextSymbol(value));
 
   }
-
+  //start timer
   useEffect(() => {
     if (started) {
       TypeTimer()
@@ -68,6 +66,7 @@ const TypingTest = () => {
 
   }, [timer])
 
+  //timer function to show modal when timer ends
   const TypeTimer = () => {
     if (timer > 0 && finished == false) {
       setTimeout(() => {
@@ -80,17 +79,12 @@ const TypingTest = () => {
       setSeconds(setisModalOpen(true));
     }
   }
+  //restart button function
   const onRestart = () => {
-    // setUserInput('')
-    // setSymbols(0)
-    // setSec(0)
-    // setStarted(false)
-    // setFinished(false)
-    // clearInterval(start);
     window.location.reload(true)
   }
 
-
+  //modal show on text finish before time
   const onFinish = (userInput) => {
     if (userInput.length === text.length) {
       clearInterval(interval.current);
@@ -100,19 +94,21 @@ const TypingTest = () => {
     }
   }
 
+  //count the lenght of correct symbols
   const countCorrectSymbols = (userInput) => {
     const quotes = text.replace(' ', '');
     return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]).length;
 
   }
+  //next symbol to be pressed
   const nextSymbol = (userInput) => {
     const quotes = text;
-    // console.log(quotes);
     userInput.replace(' ', '').split('').filter((s, i) => {
-      // s === quotes[i]
+      //  s === quotes[i+1].length;
     })
 
   }
+  //start timer for
   const WPMcount = () => {
     if (!started) {
       setStarted(true);
@@ -124,13 +120,12 @@ const TypingTest = () => {
 
 
   const activekey = (nextkey) => {
-
+    // var x=[]
+    //  x=document.getElementsByClassName('primary-char')
+    //  for(var i=0;i<x.length;i++){
+    //   nextSymbol(x[i])
+    //  }
   }
-  // var x=[]
-  //  x=document.getElementsByClassName('primary-char')
-  //  for(var i=0;i<x.length;i++){
-  //   console.log(x[i])
-  //  }
 
 
 
