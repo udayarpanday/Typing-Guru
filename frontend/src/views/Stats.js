@@ -157,7 +157,7 @@ const Stats = ({ history, props }) => {
               <div className='inner'>
                 <div className='avg-speed'>
                   <h4>Average Speed</h4>
-                  <h1>{avg = Math.round((avgSpeed.reduce((a, b) => a + b, 0) / avgSpeed.length) || 0)}</h1>
+                  <h1>{avg = Math.round((avgSpeed.reduce((a, b) => a + b, 0) / avgSpeed.length) || 0)} wpm</h1>
                 </div>
                 <div className='avg-acc'>
                   <h4>Average Accuracy</h4>
@@ -169,7 +169,7 @@ const Stats = ({ history, props }) => {
               <div className='inner'>
                 <div className='best-speed'>
                   <h4>Best Speed</h4>
-                  <h1>{Math.max(...avgSpeed)}</h1>
+                  <h1>{Math.max(...avgSpeed)} wpm</h1>
                 </div>
                 <div className='best-acc'>
                   <h4>Best Accuracy</h4>

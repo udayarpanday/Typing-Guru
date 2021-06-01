@@ -34,6 +34,11 @@ const Test = (props) => {
 
         })
       }
+      <br></br>
+      <div style={{position:'absolute',right:'100px'}}>
+        Mistakes:{mistake}
+      </div>
+      
       
     </div>
   )

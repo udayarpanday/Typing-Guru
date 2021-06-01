@@ -12,6 +12,7 @@ const { errorHandler } = require('../helpers/dbErrorHandling')
 
 const { result } = require('lodash')
 
+//to register user
 exports.registerController = (req, res) => {
   const { name, email, password } = req.body;
   const errors = validationResult(req);
@@ -26,7 +27,7 @@ exports.registerController = (req, res) => {
       expiresIn: '15m'
     }
   );
-  const transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({   //send mail
     service: 'gmail',
     auth: {
       user: 'fyp.typingguru@gmail.com',
@@ -108,7 +109,7 @@ exports.activationController = (req, res) => {
               return res.json({
                 success: true,
                 message: user,
-                message: 'Signup success'
+                message: 'Account Created'
               })
             }
           })

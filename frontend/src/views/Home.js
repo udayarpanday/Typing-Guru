@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { FaBars } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import Header from './Header.js';
@@ -7,6 +7,20 @@ import Footer from './Footer.js';
 
 
 const Home = () => {
+//     var i = 0;
+//     var txt = 'Learn Nepali Touch Typing.';
+//     var speed = 100;
+  
+//   function typeWriter() {
+//     if (i < txt.length) {
+//       document.getElementById("demo").innerHTML += txt.charAt(i);
+//       i++;
+//       setTimeout(typeWriter, speed);
+//     }
+//   }
+//   useEffect(() => {
+//     typeWriter()
+//   })
     return (
         <>
             <Header />
@@ -43,8 +57,8 @@ const Home = () => {
                             <img src={TypingSS} alt="Logo" />
                         </div>
                         <div className='details-items'>
-                            <h2> What is TypingGuru</h2>
-                            <p>It is web based and highly effective. TypingGuru is (and will always be) free for enthusaistics learners. </p>
+                            <h2> What is TypingGuru?</h2>
+                            <p>A web based typing platform that focuses on teaching enthuiastic learner about the baiscs of Nepali typing. </p>
                         </div>
                     </div>
                 </div>

@@ -22,7 +22,6 @@ const Lessons = (props) => {
         axios
             .get(`${process.env.REACT_APP_API_URL}/lessons`)
             .then(res => {
-                // const { lessonname, lessondetails } = res.data;
                 setState(res.data);
             })
 

@@ -35,7 +35,7 @@ const TypingLessons = (props, history) => {
   const calcAccuracy = () => {
     if (symbols !== 0) {
       let accuracy
-      let total_words = userInput.replace(' ', '');
+      let total_words = userInput
       accuracy = (symbols / total_words.length) * 100
       return Math.round(accuracy)
     } else {
@@ -68,6 +68,7 @@ const TypingLessons = (props, history) => {
         .then(res => {
           console.log(res.data)
           setText(res.data.lessondetails)
+          activekey('')
 
         })
         .catch(err => {
@@ -76,7 +77,7 @@ const TypingLessons = (props, history) => {
     getData();
 
 
-  }, [props])
+  }, [props,text])
 
   useEffect(() => {
     getfocus()
@@ -97,7 +98,9 @@ const TypingLessons = (props, history) => {
   const [modalShow, setModalShow] = useState(false);
   const [keyboard, setKeyboard] = useState({
     textChange: 'Hide Keyboard',
-    display: 'block'
+    display: true,
+    show:'block'
+
   })
   // const [opacity,setOpacity]=useState(0)
   const { display, textChange } = keyboard
@@ -121,6 +124,7 @@ const TypingLessons = (props, history) => {
     setUserInput(value);
     setSymbols(countCorrectSymbols(value));
     setNext(nextSymbol(value));
+    activekey(value)
 
   }
 
@@ -155,15 +159,22 @@ const TypingLessons = (props, history) => {
   }
 
   const countCorrectSymbols = (userInput) => {
-    const quotes = text.replace(' ', '');
-    return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]).length;
+    const quotes = text
+    return userInput.split('').filter((s, i) => s === quotes[i]).length;
+
+  }
+  //to get both the correct and inccorrect index for next symbol 
+  const countSymbols = (userInput) => {
+    const quotes = text
+    
+    return userInput.split('').filter((s, i) => s === quotes[i] || s!=quotes[i]).length;
 
   }
   const nextSymbol = (userInput) => {
-    const quotes = text;
-    return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]);
-
+    console.log(text[0])
+    return text[countSymbols(userInput)]
   }
+
   const WPMcount = () => {
     if (!started) {
       setStarted(true);
@@ -174,14 +185,26 @@ const TypingLessons = (props, history) => {
   }
 
 
-  const activekey = (nextkey) => {
+  const activekey = (userInput) => {
+    var x;
+    x = document.querySelectorAll('.active')
+    x.forEach(element => element.classList.remove('active'))
+    if(userInput==""){
+      document.querySelectorAll('.ref-primary-char').forEach(function (element) {
+        if (element.innerHTML === text[0]) {
+          element.parentNode.classList.add('active')
+        }
+      })
+    }
+    document.querySelectorAll('.ref-primary-char').forEach(function (element) {
+      if (element.innerHTML === nextSymbol(userInput)) {
+        
+        element.parentNode.classList.add('active')
+      }
+    })
+
 
   }
-  // var x=[]
-  //  x=document.getElementsByClassName('primary-char')
-  //  for(var i=0;i<x.length;i++){
-  //   console.log(x[i])
-  //  }
 
 
 
@@ -217,9 +240,13 @@ const TypingLessons = (props, history) => {
                   <FaCog size='32px' data-tip data-for="settingsTip" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item onClick={onRestart}>Dark Mode</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setKeyboard({ ...keyboard, display: 'none', textChange: 'Show Key' })}>{textChange}</Dropdown.Item>
+                <Dropdown.Menu >
+                  <Dropdown.Item onClick={() => {if(display) 
+                  {setKeyboard({ ...keyboard, display:false,show: 'none', textChange: 'Show Keyboard' })}
+                  else{
+                    setKeyboard({ ...keyboard,display:true, show: 'block', textChange: 'Hide Keyboard' })
+                  }}}>
+                  {textChange}</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <ReactTooltip id="settingsTip" place="top" effect="solid">
@@ -246,6 +273,7 @@ const TypingLessons = (props, history) => {
               className="typing-area"
               readOnly={finished}
               onInput={TypeTimer}
+              spellCheck='false'
             >
             </textarea>
           </div>
@@ -254,18 +282,18 @@ const TypingLessons = (props, history) => {
       <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={() => setisModalOpen(false)}>
 
         <div className='modal-wrapper'>
-          <div clasName='section-title'>
+          <div clasName='section-title' style={{textAlign:'center'}}>
             <h1>Test Results</h1>
           </div>
           <div className='custom-container'>
             <div className='results-wrapper'>
               <div className='result-speed card-view'>
                 <h3>Speed</h3>
-                <Speed sec={sec} symbols={symbols}></Speed>
+                {calcSpeed()} wpm
               </div>
               <div className='result-acc card-view'>
                 <h3>Accuracy</h3>
-                <Accuracy symbols={symbols} text={text} userInput={userInput}></Accuracy>
+                {calcAccuracy()} %
               </div>
               <div className='result-time card-view'>
                 <h3>Time</h3>
@@ -279,14 +307,14 @@ const TypingLessons = (props, history) => {
           </div>
         </div>
         <div style={{ textAlign: 'center', }}>
-          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%' }} onClick={() => window.location.reload(true)}>
+          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%',fontSize:'22px' }} onClick={() => window.location.reload(true)}>
             Close
             </button>
 
         </div>
 
       </Modal>
-      <Keyboard />
+      <Keyboard keyboard={keyboard}/>
     </>
   );
 };

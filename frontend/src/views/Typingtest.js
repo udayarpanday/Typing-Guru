@@ -11,19 +11,23 @@ import { Dropdown } from 'react-bootstrap'
 import ReactTooltip from "react-tooltip";
 import Keyboard from './Keyboard';
 import Charts from './Charts.js';
+import getText from './text';
 
 
 const TypingTest = () => {
-  // const {totalwpm } = useGlobalContext();
+
   function getfocus() {
     document.getElementById('mytext').focus();
     // TypeTimer()
   }
+  
+  const [modalShow, setModalShow] = useState(false);
+ 
+  const [text, setText] = useState(getText());
 
   useEffect(() => {
-    getfocus()
-  })
-  const [text, setText] = useState('sfठमाडौँ — नेपाली विद्यार्थीहरुले बनाएको "गरुडा" रकेट धनुषाको भिमानमा करिब डेढसय मिटर अपलिफ्ट भएर खसेको छ । ');
+    activekey('')
+  }, [text])
 
   const [userInput, setUserInput] = useState('');
   const [symbols, setSymbols] = useState('');
@@ -35,15 +39,23 @@ const TypingTest = () => {
 
   const [timer, setSeconds] = useState(30);
   const [final, setFinal] = useState(timer);
+  const [customModal, setcustomModal] = useState(false)
   const [isModalOpen, setisModalOpen] = useState(false);
-  const [modalShow, setModalShow] = useState(false);
+  
+  const [customText, setCustomText] = useState('');
   const [keyboard, setKeyboard] = useState({
     textChange: 'Hide Keyboard',
+    display: true,
+    show: 'block'
+
+  })
+  const [opacity, setOpacity] = useState(0)
+  const { display, textChange } = keyboard
+  const [type, setType] = useState({
+
+    textChange: 'Press any key to start',
     display: 'block'
   })
-  const [opacity,setOpacity]=useState(0)
-  const { display, textChange } = keyboard
-
 
   let interval = useRef(null)
 
@@ -56,6 +68,7 @@ const TypingTest = () => {
     setUserInput(value);
     setSymbols(countCorrectSymbols(value));
     setNext(nextSymbol(value));
+    activekey(value)
 
   }
   //start timer
@@ -96,17 +109,20 @@ const TypingTest = () => {
 
   //count the lenght of correct symbols
   const countCorrectSymbols = (userInput) => {
-    const quotes = text.replace(' ', '');
-    return userInput.replace(' ', '').split('').filter((s, i) => s === quotes[i]).length;
+    const quotes = text
+    return userInput.split('').filter((s, i) => s === quotes[i]).length;
 
   }
+  //to get both the correct and inccorrect index for next symbol 
+  const countSymbols = (userInput) => {
+    const quotes = text
+    return userInput.split('').filter((s, i) => s === quotes[i] || s!=quotes[i]).length;
+
+  }
+
   //next symbol to be pressed
   const nextSymbol = (userInput) => {
-    const quotes = text;
-    userInput.replace(' ', '').split('').filter((s, i) => {
-      //  s === quotes[i+1].length;
-    })
-
+    return text[countSymbols(userInput)]
   }
   //start timer for
   const WPMcount = () => {
@@ -119,12 +135,25 @@ const TypingTest = () => {
   }
 
 
-  const activekey = (nextkey) => {
-    // var x=[]
-    //  x=document.getElementsByClassName('primary-char')
-    //  for(var i=0;i<x.length;i++){
-    //   nextSymbol(x[i])
-    //  }
+  const activekey = (userInput) => {
+    var x;
+    x = document.querySelectorAll('.active')
+    x.forEach(element => element.classList.remove('active'))
+    if(userInput==""){
+      document.querySelectorAll('.ref-primary-char').forEach(function (element) {
+        if (element.innerHTML === text[0]) {
+          element.parentNode.classList.add('active')
+        }
+      })
+    }
+    document.querySelectorAll('.ref-primary-char').forEach(function (element) {
+      if (element.innerHTML === nextSymbol(userInput)) {
+        
+        element.parentNode.classList.add('active')
+      }
+    })
+
+
   }
 
 
@@ -155,17 +184,21 @@ const TypingTest = () => {
                 Your typing accuracy
               </ReactTooltip>
             </div>
+            <div></div>
             <div className='settings'>
               <Dropdown>
                 <Dropdown.Toggle variant="success" id="dropdown-basic" >
                   <FaStopwatch size='32px' data-tip data-for="timerTip" />
                 </Dropdown.Toggle>
-
-                <Dropdown.Menu style={{ display: 'grid' }}>
-                  <Dropdown.Item onClick={() => setSeconds(15)} style={{ border: '1px solid' }}>15 seconds</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSeconds(30)} style={{ border: '1px solid' }}>30 seconds</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setSeconds(60)} style={{ border: '1px solid' }}>60 seconds</Dropdown.Item>
+                <Dropdown.Menu  >
+                  <div style={{ margin: '-40px 50px' }}>
+                    <Dropdown.Item onClick={() => { if (!started) { setSeconds(15) } }} style={{ border: '1px solid', padding: '4px' }}>15 sec</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { if (!started) { setSeconds(30) } }} style={{ border: '1px solid', padding: '4px' }}>30 sec</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { if (!started) { setSeconds(60) } }} style={{ border: '1px solid', padding: '4px' }}>60 sec</Dropdown.Item>
+                    <Dropdown.Item onClick={() => { if (!started) { setSeconds(120) } }} style={{ border: '1px solid', padding: '4px' }}>120 sec</Dropdown.Item>
+                  </div>
                 </Dropdown.Menu>
+
               </Dropdown>
               <ReactTooltip id="timerTip" place="top" effect="solid">
                 Time
@@ -175,10 +208,16 @@ const TypingTest = () => {
                   <FaCog size='32px' data-tip data-for="settingsTip" />
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu style={{ display: 'grid' }}>
-                  <Dropdown.Item onClick={onRestart}>Dark Mode</Dropdown.Item>
-                  <Dropdown.Item onClick={() => setKeyboard({ ...keyboard, display: 'none', textChange: 'Show Key' })}>{textChange}</Dropdown.Item>
-                  {/* <Dropdown.Item onclick={onRestart}>Something else</Dropdown.Item> */}
+                <Dropdown.Menu >
+                  <Dropdown.Item onClick={() => {
+                    if (display) { setKeyboard({ ...keyboard, display: false, show: 'none', textChange: 'Show Keyboard' }) }
+                    else {
+                      setKeyboard({ ...keyboard, display: true, show: 'block', textChange: 'Hide Keyboard' })
+                    }
+                  }}>
+                    {textChange}</Dropdown.Item>
+                  <Dropdown.Item style={{ padding: '4px' }} onClick={() => { if (!started) {setcustomModal(true)}}
+                  }>Custom text</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
               <ReactTooltip id="settingsTip" place="top" effect="solid">
@@ -205,7 +244,7 @@ const TypingTest = () => {
               className="typing-area"
               readOnly={finished}
               onInput={TypeTimer}
-
+              spellCheck="false"
             >
             </textarea>
           </div>
@@ -214,7 +253,7 @@ const TypingTest = () => {
       <Modal isOpen={isModalOpen} ariaHideApp={false} onRequestClose={() => setisModalOpen(false)}>
 
         <div className='modal-wrapper'>
-          <div clasName='section-title'>
+          <div clasName='section-title' style={{textAlign:'center'}}>
             <h1>Test Results</h1>
           </div>
           <div className='custom-container'>
@@ -229,7 +268,7 @@ const TypingTest = () => {
               </div>
               <div className='result-time card-view'>
                 <h3>Time</h3>
-                {final}s
+                {15-final}s
             </div>
             </div>
             <div className='result-chart'>
@@ -240,14 +279,24 @@ const TypingTest = () => {
         </div>
 
         <div style={{ textAlign: 'center', }}>
-          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%' }} onClick={() => window.location.reload(true)}>
+          <button className='options-btn' style={{ textAlign: 'center', 'width': '20%', fontSize: '22px' }} onClick={() => window.location.reload(true)}>
             Close
             </button>
-
         </div>
-
       </Modal>
-      <Keyboard />
+      <Modal isOpen={customModal} ariaHideApp={false} onRequestClose={() => setcustomModal(false)}>
+        <div className='section-title'>
+          <h1>Custom Text</h1>
+          <p>Here you can cutomize the test scenario and be able to add your own text to test yourself.</p>
+          <input className='customtext' onChange={event => setCustomText(event.target.value)} style={{height:'400px',width:'1310px',fontFamily:'Devanagari',fontSize:'50px'}}/>
+          <br></br>
+        </div>
+        <div style={{ textAlign: 'center', }}>
+            <button className='options-btn' style={{ textAlign: 'center', 'width': '20%', fontSize: '22px' }} onClick={() => setText(customText) || setcustomModal(false)}>Save</button>
+      </div>
+      </Modal>
+
+      <Keyboard keyboard={keyboard} text={text} />
     </>
   );
 };

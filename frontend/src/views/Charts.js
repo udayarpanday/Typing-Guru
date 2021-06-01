@@ -10,7 +10,7 @@ const Data = {
             label: 'Speed',
             fill: false,
             lineTension: 0.5,
-            backgroundColor: 'rgba(75,192,192,1)',
+            backgroundColor: 'rgba(75,192,192,0.4)',
             borderColor: 'rgba(0,0,0,1)',
             borderWidth: 2,
             data: total_wpm
@@ -22,7 +22,7 @@ const Data = {
             lineTension: 0.5,
             backgroundColor: 'rgba(15,82,112,1)',
             borderColor: 'rgba(0,0,0,1)',
-            data: [40]
+            data: [30]
         },
         {
             type: 'line',
@@ -37,12 +37,21 @@ const Data = {
 }
 
 const Level = () => {
-    if (wpm < 30) {
-        return <h2>Looks like you need more practise continue on with the lessons.</h2>
+    if (wpm < 30 || 0) {
+        return<> 
+        <h1>Tips</h1><br></br>
+        <h2>Looks like you need more practice continue on with the lessons.</h2>
+        </>
     } else if (wpm < 80) {
-        return <h2>Great Job! You are typing as an average Nepali typist continue with the lessons to improve.</h2>
+        return<> 
+        <h1>Tips</h1><br></br>
+         <h2>Great Job! You are typing as an average Nepali typist continue with the lessons to improve.</h2>
+         </>
     } else {
-        return <h2>WOW...You are offically a typing guru now.</h2>
+        return <> 
+        <h1>Tips</h1><br></br>
+        <h2>WOW...You are offically a typing guru now.</h2>
+        </> 
     }
 }
 
@@ -89,6 +98,9 @@ export default (props) => {
         )
 
     }
-    return '0 wpm';
+    return <>
+    <h1>Tips</h1><br></br>
+    <h2>Looks like you need more practice continue on with the lessons.</h2>
+    </>
 
 }

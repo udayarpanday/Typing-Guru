@@ -2,14 +2,12 @@ import React, { useState, useRef, useEffect } from 'react';
 
 
 const Keyboard = (props) => {
-
-
   return (
     <>
-      <section className='keyboard-layout' >
+      <section className='keyboard-layout' style={{display:props.keyboard.show}}>
         <div className='custom-container'>
           <div className='keyboard-container themea' >
-            <div className='keyboard'  >
+            <div className='keyboard'   >
               <div id='i0' className='key'>
                 <span className="secondary-char">॥</span>
                 <span className="primary-char">ञ</span>
@@ -148,7 +146,7 @@ const Keyboard = (props) => {
               <div id='i28' className='nc-key'>
                 <span className="nc-key-text">Caps Lock</span>
               </div>
-              <div id='i29' className='key active'>
+              <div id='i29' className='key '>
                 <span className="secondary-char">आ</span>
                 <span className="primary-char">ब</span>
                 <span className="ref-primary-char">a</span>
@@ -276,6 +274,7 @@ const Keyboard = (props) => {
               </div>
               <div id='i57' className='key'>
                 <span className="nc-key-text"></span>
+                <span className="ref-primary-char"> </span>
               </div>
               <div id='i58' className='nc-key'>
                 <span className="nc-key-text">Command</span>

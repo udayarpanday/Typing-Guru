@@ -20,7 +20,7 @@ const Register = () => {
   const handleChange = text => e => {
     setFormData({ ...formData, [text]: e.target.value })
   }
-  //submit data to backend
+  //post method for register user
   const handleSubmit = e => {
     e.preventDefault()
     if (name && email && password) {
@@ -96,7 +96,7 @@ const Register = () => {
                     </div>
                     <div className='login-box'>
                       <input
-                        type='email'
+                        type='text'
                         placeholder='Email'
                         onChange={handleChange('email')}
                         className='input-box'
@@ -138,7 +138,6 @@ const Register = () => {
               </form>
               <hr></hr>
               <div className='register-section'>
-
                 <h4>Have an Account?</h4>
                 <button className='options-btn button'>
                   <a href='/login' target='_self' >
