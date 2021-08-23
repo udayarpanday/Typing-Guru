@@ -31,7 +31,7 @@ exports.registerController = (req, res) => {
     service: 'gmail',
     auth: {
       user: 'fyp.typingguru@gmail.com',
-      pass: 'thisismyfyp2021'
+      pass: 
     }
   });
 
